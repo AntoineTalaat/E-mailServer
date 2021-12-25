@@ -6,13 +6,20 @@ public class Mail {
 	private String fromEmail;
 	private String toEmail;
 	private String subject;
-	private String ID;
+	private int ID;
 	private String date;
 	private int priority;
 	private String attachements;
 	private String body;
 	
 	
+
+	public int getID() {
+		return this.ID;
+	}
+	public void setID(int iD) {
+		this.ID = iD;
+	}
 	public String getFromEmail() {
 		return fromEmail;
 	}

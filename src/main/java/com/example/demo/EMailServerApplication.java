@@ -10,16 +10,21 @@ import java.util.Scanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.controllers.CreateMailCommand;
+import com.example.controllers.CreateMailCommandProxy;
 import com.example.controllers.CreateUserCommand;
 import com.example.controllers.CreateUserCommandProxy;
+import com.example.controllers.DeleteMailCommand;
 import com.example.controllers.DeleteUserCommand;
 import com.example.controllers.DeleteUserCommandProxy;
+import com.example.controllers.ICommand;
 import com.example.controllers.UserDatabase;
 import com.example.mail.Mail;
 import com.example.users.User;
@@ -28,7 +33,7 @@ import com.google.gson.Gson;
 @SpringBootApplication
 @RestController
 @CrossOrigin
-@RequestMapping("/mail")
+@RequestMapping("/server")
 /**
  * This is the request controller
  * @author Tony
@@ -78,19 +83,20 @@ public class EMailServerApplication {
 		mail.setToEmail("vero");
 		mail.setPriority(2);
 		mail.setDate("today");
+		mail.setID(1);
 		
-		CreateMailCommand command = new CreateMailCommand(mail);
-		command.execute();		
-		
-		
-		
-		return true;
-	
+		CreateMailCommandProxy command = new CreateMailCommandProxy(mail);
+		return command.execute();			
 	}
 	
 	
 	
 	
-	
+	@DeleteMapping("/mail/delete")
+	public boolean deleteMessage(@RequestParam String userName,@RequestParam int messageID,@RequestParam String collection) {
+		ICommand command=new DeleteMailCommand(userName,messageID,collection);
+		command.execute();
+		return true;
+	}
 
 }
