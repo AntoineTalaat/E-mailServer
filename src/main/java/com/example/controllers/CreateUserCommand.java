@@ -8,7 +8,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.example.users.SecurityInfo;
 import com.example.users.User;
 import com.example.users.UserBuilder;
 import com.google.gson.Gson;
@@ -25,12 +24,13 @@ public class CreateUserCommand implements ICommand{
 	}
 	
 	public void execute() {
-		UserBuilder builder=new UserBuilder();
-		User x = builder.getUser(this.userName);
-		
 		ArrayList<String> users;
 		users=this.database.getUserListFromFile();
-		users.add(this.userName);		
+		
+		UserBuilder builder=new UserBuilder();
+		User x = builder.getUser(this.userName);
+		users.add(this.userName);
+		
 		this.database.saveUserListToFile(users);
 	}
 }

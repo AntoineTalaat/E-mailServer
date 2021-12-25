@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.example.users.SecurityInfo;
 import com.google.gson.Gson;
 
 public class UserFileCreator {
