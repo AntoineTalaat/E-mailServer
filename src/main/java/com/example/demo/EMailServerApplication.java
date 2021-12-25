@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.controllers.CreateUserCommand;
+import com.example.controllers.CreateUserCommandProxy;
 import com.example.controllers.UserDatabase;
 import com.example.users.User;
 import com.google.gson.Gson;
@@ -39,12 +40,16 @@ public class EMailServerApplication {
 	
 	@PostMapping("/user/register")
 	public boolean registerUser(@RequestBody String newUserName) {
-		
-		CreateUserCommand command = new CreateUserCommand(newUserName);
-		command.execute();
-		
-		return true;
-		
+		CreateUserCommandProxy command = new CreateUserCommandProxy(newUserName);
+		return command.execute();
 	}
+	
+	@PostMapping("/user/login")
+	public boolean loginUser(@RequestBody String userName) {
+		CreateUserCommandProxy command = new CreateUserCommandProxy(userName);
+		return command.execute();
+	}
+	
+	
 
 }
