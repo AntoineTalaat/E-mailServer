@@ -9,7 +9,7 @@ public class Mail {
 	private String ID;
 	private String date;
 	private int priority;
-	private ArrayList<String> attachements;
+	private String attachements;
 	private String body;
 	
 	
@@ -43,10 +43,10 @@ public class Mail {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-	public ArrayList<String> getAttachements() {
+	public String getAttachements() {
 		return attachements;
 	}
-	public void setAttachements(ArrayList<String> attachements) {
+	public void setAttachements(String attachements) {
 		this.attachements = attachements;
 	}
 	public String getBody() {
