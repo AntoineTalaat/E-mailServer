@@ -70,7 +70,6 @@ public class DeleteMailCommand implements ICommand {
 		for(int i=0;i<collection.size();i++) {
 			if(collection.get(i).getID()==this.deleteMessageID) {
 				collection.remove(i);
-				
 				break;
 			}
 		}

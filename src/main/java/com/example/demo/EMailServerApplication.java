@@ -87,7 +87,7 @@ public class EMailServerApplication {
 		 * part to be added: JSON TO MAIL OBJECT PARSING
 		 */
 		Mail mail = new Mail();
-		mail.setAttachements("picture.com");
+		mail.setAttachement("picture.com");
 		mail.setBody("Happy birthday to you!");
 		mail.setSubject("HBD");
 		mail.setFromEmail("vero@oop");
@@ -113,11 +113,17 @@ public class EMailServerApplication {
 	
 	
 	@GetMapping("/user/getMailFolder")
-	public ArrayList<Mail> getInbox(@RequestParam String userName,@RequestParam String folder){
+	public ArrayList<Mail> getMails(@RequestParam String userName,@RequestParam String folder){
 		GetMailsCommand command = new GetMailsCommand(userName,folder);
 		return command.execute();
 	}
 	
+	
+	@GetMapping("/user/sort")
+	public ArrayList<Mail> getMailsSorted(@RequestParam String userName,@RequestParam String folder,@RequestParam String criteria){
+		GetMailsCommand command = new GetMailsCommand(userName,folder);
+		return command.execute();
+	}
 	
 	
 	
