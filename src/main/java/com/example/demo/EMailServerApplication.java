@@ -46,14 +46,13 @@ import com.google.gson.Gson;
  *
  */
 public class EMailServerApplication {
-	UserUUIDConverter converter;
+	UserUUIDConverter converter = new UserUUIDConverter();
 
 	public static void main(String[] args) {
 		SpringApplication.run(EMailServerApplication.class, args);
 		UserDatabase databaseSetupObject =new UserDatabase();
 		databaseSetupObject.setupFileDatabase();	
 		EMailServerApplication e=new EMailServerApplication();
-		e.converter=new UserUUIDConverter();
 	}
 	
 	@PostMapping("/user/register")
