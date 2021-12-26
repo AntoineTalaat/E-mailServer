@@ -12,10 +12,10 @@ import java.util.ArrayList;
 public class LoginCommandProxy implements ICommandProxy{
 	private String userName;
 	private UserDatabase database;
-	private UserCacheManager cache;
+	//private UserCacheManager cache;
 	//a password can be passed to the constructor
 	public LoginCommandProxy(String userName) {
-		this.cache=this.cache.getInstance();
+	//	this.cache=this.cache.getInstance();
 		this.database=new UserDatabase();
 		this.userName=userName;
 	}
@@ -26,7 +26,7 @@ public class LoginCommandProxy implements ICommandProxy{
 		boolean successful = true;
 		ArrayList<String> users =database.getUserListFromFile();
 		if(users.contains(userName)==false) successful=false;
-		if(cache.isFetched(userName)) successful=false;
+		//if(cache.isFetched(userName)) successful=false;
 		
 		if(successful) {
 			ICommand command = new LoginCommand(userName);

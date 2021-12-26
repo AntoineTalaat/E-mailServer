@@ -30,7 +30,6 @@ public class CreateUserCommand implements ICommand{
 		UserBuilder builder=new UserBuilder();
 		User x = builder.getUser(this.userName);
 		users.add(this.userName);
-		
 		this.database.saveUserListToFile(users);
 	}
 }

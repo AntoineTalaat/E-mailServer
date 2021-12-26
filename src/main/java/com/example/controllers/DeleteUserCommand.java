@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 public class DeleteUserCommand implements ICommand {
 
-	private UserCacheManager cache;
+	//private UserCacheManager cache;
 	private String userName;
 	private UserDatabase database;
 	
 	public DeleteUserCommand(String name) {
 		this.userName=name;
 		database = new UserDatabase();
-		this.cache=cache.getInstance();
+		//this.cache=cache.getInstance();
 	}
 	
 	
@@ -24,7 +24,7 @@ public class DeleteUserCommand implements ICommand {
 		ArrayList<String> users;
 		users=this.database.getUserListFromFile();
 		users.remove(this.userName);
-		cache.removeUser(userName);
+		//cache.removeUser(userName);
 		this.database.saveUserListToFile(users);
 	}
 	

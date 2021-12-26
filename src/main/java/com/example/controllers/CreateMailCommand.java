@@ -15,11 +15,13 @@ public class CreateMailCommand implements ICommand {
 	private String fromUser;
 	private String toUser;
 	private Mail mail;
+//	private UserCacheManager cache;
 	
 	public CreateMailCommand(Mail mail) {
 		this.fromUser=mail.getFromEmail();
 		this.toUser=mail.getToEmail();
 		this.mail=mail;
+//		this.cache=this.cache.getInstance();
 	}
 	
 	
@@ -29,7 +31,13 @@ public class CreateMailCommand implements ICommand {
 		
 		//get inbox of the user from json to arraylist
 		ArrayList<Mail> inbox;
+		
+		/*
+		 * we used caching to avoid having to read again
+		 */
+//		inbox= this.cache.fetchUser(toUser).getInboxMail();
 		inbox = receiverData.getInboxData();
+		
 		//add message 
 		inbox.add(this.mail);
 		//save inbox again
@@ -38,7 +46,11 @@ public class CreateMailCommand implements ICommand {
 		
 		//get sent of the other from json to arraylist
 		ArrayList<Mail> sent;
+		
+		
+//		sent=this.cache.fetchUser(fromUser).getSentMail();
 		sent = senderData.getSentData();
+		
 		//add message 
 		sent.add(this.mail);
 		//save sent

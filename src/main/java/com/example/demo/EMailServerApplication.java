@@ -6,11 +6,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +26,12 @@ import com.example.controllers.CreateUserCommandProxy;
 import com.example.controllers.DeleteMailCommand;
 import com.example.controllers.DeleteUserCommand;
 import com.example.controllers.DeleteUserCommandProxy;
+import com.example.controllers.GetMailsCommand;
 import com.example.controllers.ICommand;
 import com.example.controllers.ICommandProxy;
 import com.example.controllers.LoginCommandProxy;
 import com.example.controllers.UserDatabase;
+import com.example.controllers.UserUUIDConverter;
 import com.example.mail.Mail;
 import com.example.users.User;
 import com.google.gson.Gson;
@@ -42,11 +46,14 @@ import com.google.gson.Gson;
  *
  */
 public class EMailServerApplication {
+	UserUUIDConverter converter;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EMailServerApplication.class, args);
 		UserDatabase databaseSetupObject =new UserDatabase();
-		databaseSetupObject.setupFileDatabase();		
+		databaseSetupObject.setupFileDatabase();	
+		EMailServerApplication e=new EMailServerApplication();
+		e.converter=new UserUUIDConverter();
 	}
 	
 	@PostMapping("/user/register")
@@ -58,13 +65,18 @@ public class EMailServerApplication {
 	
 	
 	@PostMapping("/user/login")
-	public boolean loginUser(@RequestBody String userName) {
+	public String loginUser(@RequestBody String userName) {
 		ICommandProxy command = new LoginCommandProxy(userName);
-		return command.execute();//command.execute();
+		String response="0";
+		if (command.execute()) {
+			response=converter.convertToUUID(userName);
+		}
+		return response;		
 	}
 	
 	@PostMapping("/user/delete")
 	public boolean deleteUser(@RequestBody String userName) {
+		//String userName=this.converter.convertToAccount(id);
 		ICommandProxy command = new DeleteUserCommandProxy(userName);
 		return command.execute();
 	}
@@ -79,8 +91,8 @@ public class EMailServerApplication {
 		mail.setAttachements("picture.com");
 		mail.setBody("Happy birthday to you!");
 		mail.setSubject("HBD");
-		mail.setFromEmail("mark");
-		mail.setToEmail("vero");
+		mail.setFromEmail("vero@oop");
+		mail.setToEmail("mark@oop");
 		mail.setPriority(2);
 		mail.setDate("today");
 		mail.setID(1);
@@ -93,11 +105,20 @@ public class EMailServerApplication {
 	
 	
 	@DeleteMapping("/mail/delete")
-	public boolean deleteMessage(@RequestParam String userName,@RequestParam int messageID,@RequestParam String collection) {
+	public boolean deleteMessage(@RequestParam String id,@RequestParam int messageID,@RequestParam String collection) {
+		String userName = this.converter.convertToAccount(id);
 		ICommand command=new DeleteMailCommand(userName,messageID,collection);
 		command.execute();
 		return true;
 	}
+	
+	
+	@GetMapping("/user/getMailFolder")
+	public ArrayList<Mail> getInbox(@RequestParam String userName,@RequestParam String folder){
+		GetMailsCommand command = new GetMailsCommand(userName,folder);
+		return command.execute();
+	}
+	
 	
 	
 	

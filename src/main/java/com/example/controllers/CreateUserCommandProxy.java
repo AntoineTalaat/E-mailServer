@@ -26,5 +26,8 @@ public class CreateUserCommandProxy implements ICommandProxy {
 			command.execute();
 		}
 		return successful;
+		
+		
+
 	}
 }

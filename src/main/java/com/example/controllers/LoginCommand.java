@@ -3,12 +3,12 @@ package com.example.controllers;
 import com.example.users.User;
 
 public class LoginCommand implements ICommand{
-	private UserCacheManager cache;
+	//private UserCacheManager cache;
 	private MailDatabase mailData;
 	private User user;
 	
 	public LoginCommand(String userName) {
-		this.cache=cache.getInstance();
+		//this.cache=cache.getInstance();
 		//we fetch the user data and store it to the cache
 		User user = new User();
 		user.setName(userName);
@@ -23,6 +23,6 @@ public class LoginCommand implements ICommand{
 	
 	@Override
 	public void execute() {
-		this.cache.addUser(this.user);
+		//this.cache.addUser(this.user);
 	}	
 }

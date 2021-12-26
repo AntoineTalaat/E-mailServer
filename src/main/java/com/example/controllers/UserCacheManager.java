@@ -1,4 +1,4 @@
-package com.example.controllers;
+/*package com.example.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import com.example.users.User;
 
 public class UserCacheManager {
 	private HashMap<String,User> loggedInUsers;
-	private UserCacheManager instance = new UserCacheManager();
+	private UserCacheManager instance;
 	private UserDatabase users;
 	
 	
@@ -17,7 +17,12 @@ public class UserCacheManager {
 	}
 	
 	public UserCacheManager getInstance() {
-		return this.instance;
+		if(this.instance!=null)
+			return this.instance;
+		else {
+			this.instance=new UserCacheManager();
+			return this.instance;
+		}
 	}
 	
 	
@@ -38,3 +43,4 @@ public class UserCacheManager {
 	}
 	
 }
+*/
