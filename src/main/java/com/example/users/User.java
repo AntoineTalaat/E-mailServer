@@ -6,31 +6,39 @@ import com.example.mail.Mail;
 
 public class User {
 	private String name;
-	private HashMap<String,ArrayList<String>> contacts=null;
+	private ArrayList<Contact> contacts=null;
 	private ArrayList<Mail> inboxMail=null;
 	private ArrayList<Mail> sentMail=null;
 	private ArrayList<Mail> trashMail=null;
 	private ArrayList<Mail> draftMail=null;
 	
 	
+	public ArrayList<Mail> getInboxMail() {
+		return inboxMail;
+	}
+	public void setInboxMail(ArrayList<Mail> inboxMail) {
+		this.inboxMail = inboxMail;
+	}
+	public ArrayList<Mail> getTrashMail() {
+		return trashMail;
+	}
+	public void setTrashMail(ArrayList<Mail> trashMail) {
+		this.trashMail = trashMail;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public HashMap<String, ArrayList<String>> getContacts() {
+
+	public ArrayList<Contact> getContacts() {
 		return contacts;
 	}
-	public void setContacts(HashMap<String, ArrayList<String>> contacts) {
+	public void setContacts(ArrayList<Contact> contacts) {
 		this.contacts = contacts;
 	}
-	public ArrayList<Mail> getReceivedMail() {
-		return inboxMail;
-	}
-	public void setReceivedMail(ArrayList<Mail> receivedMail) {
-		this.inboxMail = receivedMail;
-	}
+	
 	public ArrayList<Mail> getSentMail() {
 		return sentMail;
 	}

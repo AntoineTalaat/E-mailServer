@@ -2,7 +2,7 @@ package com.example.controllers;
 
 import java.util.ArrayList;
 
-public class DeleteUserCommandProxy {
+public class DeleteUserCommandProxy implements ICommandProxy{
 	private String userName;
 	private UserDatabase database;
 	

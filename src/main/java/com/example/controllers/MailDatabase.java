@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.example.mail.Mail;
+import com.example.users.Contact;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -176,4 +177,43 @@ public class MailDatabase {
 		}
 	}
 
+	
+	public ArrayList<Contact> getContactsData() {
+		File path = new File(this.folderPath + this.userName + "/contacts.JSON");
+		String data = "";
+		ArrayList<Contact> contacts;
+		try {
+			Scanner myReader = new Scanner(path);
+			while (myReader.hasNextLine()) {
+				data = data + myReader.nextLine();
+			}
+			myReader.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Type listType = new TypeToken<ArrayList<Contact>>() {
+		}.getType();
+		contacts = this.gson.fromJson(data, listType);
+		return contacts;
+	}
+	
+	
+	
+	public void saveContactsData(ArrayList<Contact> contacts) {
+		Type listType = new TypeToken<ArrayList<Contact>>() {
+		}.getType();
+		String jsontxt = this.gson.toJson(contacts, listType);
+		FileWriter myWriter;
+		try {
+			myWriter = new FileWriter(this.folderPath + this.userName + "/contacts.JSON");
+			myWriter.write(jsontxt);
+			myWriter.close();
+
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 }

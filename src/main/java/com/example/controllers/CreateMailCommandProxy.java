@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.example.mail.Mail;
 
-public class CreateMailCommandProxy {
+public class CreateMailCommandProxy implements ICommandProxy{
 	 
 			private String fromUser;
 			private String toUser;

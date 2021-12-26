@@ -25,6 +25,8 @@ import com.example.controllers.DeleteMailCommand;
 import com.example.controllers.DeleteUserCommand;
 import com.example.controllers.DeleteUserCommandProxy;
 import com.example.controllers.ICommand;
+import com.example.controllers.ICommandProxy;
+import com.example.controllers.LoginCommandProxy;
 import com.example.controllers.UserDatabase;
 import com.example.mail.Mail;
 import com.example.users.User;
@@ -49,23 +51,21 @@ public class EMailServerApplication {
 	
 	@PostMapping("/user/register")
 	public boolean registerUser(@RequestBody String newUserName) {
-		CreateUserCommandProxy command = new CreateUserCommandProxy(newUserName);
+		ICommandProxy command = new CreateUserCommandProxy(newUserName);
 		return command.execute();
 	}
 	
 	
-	//LOGIN is not ready yet
-	//Need to prepare the caching steps which will load the necessary data
-	//also need to check whether the get inbox is called in sequence
-	/*@PostMapping("/user/login")
+	
+	@PostMapping("/user/login")
 	public boolean loginUser(@RequestBody String userName) {
-		//CreateUserCommandProxy command = new CreateUserCommandProxy(userName);
-		return true ;//command.execute();
-	}*/
+		ICommandProxy command = new LoginCommandProxy(userName);
+		return command.execute();//command.execute();
+	}
 	
 	@PostMapping("/user/delete")
 	public boolean deleteUser(@RequestBody String userName) {
-		DeleteUserCommandProxy command = new DeleteUserCommandProxy(userName);
+		ICommandProxy command = new DeleteUserCommandProxy(userName);
 		return command.execute();
 	}
 	
@@ -85,7 +85,7 @@ public class EMailServerApplication {
 		mail.setDate("today");
 		mail.setID(1);
 		
-		CreateMailCommandProxy command = new CreateMailCommandProxy(mail);
+		ICommandProxy command = new CreateMailCommandProxy(mail);
 		return command.execute();			
 	}
 	
@@ -98,5 +98,9 @@ public class EMailServerApplication {
 		command.execute();
 		return true;
 	}
+	
+	
+	
+	
 
 }
