@@ -89,9 +89,9 @@ public class Mail {
 
 	public static Comparator<Mail> MailBodyComparator = new Comparator<Mail>() {
 		public int compare(Mail m1, Mail m2) {
-			String subject1 = m1.getBody().toUpperCase();
-			String subject2 = m2.getBody().toUpperCase();
-			return subject1.compareTo(subject2);
+			String body1 = m1.getBody().toUpperCase();
+			String body2 = m2.getBody().toUpperCase();
+			return body1.compareTo(body2);
 		}
 	};
 
@@ -101,9 +101,9 @@ public class Mail {
 	 */
 	public static Comparator<Mail> MailDateComparator = new Comparator<Mail>() {
 		public int compare(Mail m1, Mail m2) {
-			String subject1 = m1.getDate().toUpperCase();
-			String subject2 = m2.getDate().toUpperCase();
-			return subject2.compareTo(subject1);
+			String date1 = m1.getDate().toUpperCase();
+			String date2 = m2.getDate().toUpperCase();
+			return date2.compareTo(date1);
 		}
 	};
 
@@ -111,8 +111,29 @@ public class Mail {
 	
 	public static Comparator<Mail> MailSenderComparator = new Comparator<Mail>() {
 		public int compare(Mail m1, Mail m2) {
-		   String subject1 = m1.getFromEmail().toUpperCase();
-		   String subject2 = m2.getFromEmail().toUpperCase();
-		   return subject1.compareTo(subject2);
+		   String sender1 = m1.getFromEmail().toUpperCase();
+		   String sender2 = m2.getFromEmail().toUpperCase();
+		   return sender1.compareTo(sender2); 
+		   // sender1-sender2
+		   // +ve >> sender1>sender2
+		   // -ve >> sender1<sender2
 	    }};
+	    
+	    //Descending order
+    public static Comparator<Mail> PriorityComparator = new Comparator<Mail>() {
+		public int compare(Mail m1, Mail m2) {
+			int priority1 = m1.getPriority();
+			int priority2 = m2.getPriority();
+			return priority2-priority1;
+		}
+	};
+	
+	
+	public static Comparator<Mail> MailReceiverComparator = new Comparator<Mail>() {
+		public int compare(Mail m1, Mail m2) {
+		String receiver1 = m1.getToEmail().toUpperCase();
+		String receiver2 = m2.getToEmail().toUpperCase();
+		return receiver1.compareTo(receiver2); 
+		}
+	};
 }

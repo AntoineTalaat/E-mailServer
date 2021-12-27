@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.controllers.AddContactCommand;
 import com.example.controllers.CreateMailCommand;
 import com.example.controllers.CreateMailCommandProxy;
 import com.example.controllers.CreateUserCommand;
@@ -29,12 +31,15 @@ import com.example.controllers.DeleteUserCommandProxy;
 import com.example.controllers.GetMailsCommand;
 import com.example.controllers.ICommand;
 import com.example.controllers.ICommandProxy;
+import com.example.controllers.IDGenerator;
 import com.example.controllers.LoginCommandProxy;
 import com.example.controllers.UserDatabase;
 import com.example.controllers.UserUUIDConverter;
 import com.example.mail.Mail;
+import com.example.users.Contact;
 import com.example.users.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 @SpringBootApplication
 @RestController
@@ -47,7 +52,8 @@ import com.google.gson.Gson;
  */
 public class EMailServerApplication {
 	UserUUIDConverter converter = new UserUUIDConverter();
-
+	Gson gson=new Gson();
+	
 	public static void main(String[] args) {
 		SpringApplication.run(EMailServerApplication.class, args);
 		UserDatabase databaseSetupObject =new UserDatabase();
@@ -62,6 +68,12 @@ public class EMailServerApplication {
 	}
 	
 	
+	@GetMapping("/getID")
+	public int getID() {
+		return IDGenerator.getID();
+	}
+	
+	
 	
 	@PostMapping("/user/login")
 	public String loginUser(@RequestBody String userName) {
@@ -72,6 +84,9 @@ public class EMailServerApplication {
 		}
 		return response;		
 	}
+	
+	
+	
 	
 	@PostMapping("/user/delete")
 	public boolean deleteUser(@RequestBody String userName) {
@@ -125,7 +140,21 @@ public class EMailServerApplication {
 		return command.execute();
 	}
 	
+	@PostMapping("/user/addContact")
+	public boolean addContact(@RequestParam String userID, @RequestBody String contactJSON) {
+		String userName=this.converter.convertToAccount(userID);
+		Type listType = new TypeToken<Contact>() {
+		}.getType();
+		Contact contact = this.gson.fromJson(contactJSON, listType);
+		ICommand command = new AddContactCommand(userName,contact);
+		command.execute();
+		return true;
+	}
 	
+	@DeleteMapping("/user/deleteContact")
+	public boolean deleteContact(@RequestParam int contactID) {
+		return false;
+	}
 	
 	
 

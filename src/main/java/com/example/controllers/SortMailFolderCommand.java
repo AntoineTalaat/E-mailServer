@@ -34,8 +34,7 @@ public class SortMailFolderCommand implements ICommunicationCommand {
 			this.mail=database.getDraftData();
 //			this.mail=cache.fetchUser(this.account).getDraftMail();
 			break;
-		case "priority":
-			thi
+		
 		default:
 			//code to read custom json file
 			this.mail=new ArrayList<Mail>();
@@ -57,6 +56,12 @@ public class SortMailFolderCommand implements ICommunicationCommand {
 				break;
 			case "sender":
 				Collections.sort(this.mail, Mail.MailSenderComparator);
+				break;
+			case "receiver":
+				Collections.sort(this.mail,Mail.MailReceiverComparator);
+				break;
+			case "priority":
+				this.mail=PrioritySorter.sort(this.mail);
 				break;
 			default:
 				break;
