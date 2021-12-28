@@ -33,6 +33,7 @@ import com.example.controllers.JSONtoObjectConverter;
 import com.example.controllers.LoginCommandProxy;
 import com.example.controllers.RestoreFromTrashCommand;
 import com.example.controllers.SearchByWordCommand;
+import com.example.controllers.SearchContactCommand;
 import com.example.controllers.SortMailFolderCommand;
 import com.example.controllers.UserDatabase;
 import com.example.controllers.UserUUIDConverter;
@@ -185,7 +186,14 @@ public class EMailServerApplication {
 		command.execute();
 	}
 	
-	
+	/*
+	@GetMapping("/user/searchContact")
+	public ArrayList<Mail> searchContactFolder(@RequestParam String userID,@RequestParam String searchWord){
+		String userName=this.converter.convertToAccount(userID);
+		IMailCommand command = new SearchContactCommand(userName,searchWord);
+		return command.execute();
+	}
+	*/
 	
 	
 

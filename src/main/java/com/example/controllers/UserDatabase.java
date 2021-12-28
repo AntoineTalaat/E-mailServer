@@ -61,9 +61,13 @@ public class UserDatabase {
 
 	public void setupFileDatabase() {
 		File baseFile = new File(this.path);
-		boolean exists = baseFile.exists();
+		File idFile=new File("./accounts/IDGenerator.JSON");
+		boolean existsBase = baseFile.exists();
+		boolean existsID=idFile.exists();
 		try {
-			if (!exists) {
+			if(!existsID)
+				idFile.createNewFile();
+			if (!existsBase) {
 				baseFile.createNewFile();
 				ArrayList<User> users = new ArrayList<User>();
 				String jsontxt = this.gson.toJson(users, ArrayList.class);

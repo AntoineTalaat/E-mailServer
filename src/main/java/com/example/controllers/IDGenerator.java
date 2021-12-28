@@ -18,7 +18,10 @@ public class IDGenerator {
 	private Gson gson = new Gson();
 	
 	
-	
+	private void createIDFolder() {
+		File folder=new File(folderPath+"/IDGenerator.JSON");
+		folder.mkdir();
+	}
 	
 	
 	
