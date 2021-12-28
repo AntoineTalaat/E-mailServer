@@ -70,7 +70,7 @@ public class DeleteMailCommand implements ICommand {
 	private void findAndDelete(ArrayList<Mail> collection){
 		
 		for(int i=0;i<collection.size();i++) {
-			if(collection.get(i).getID()==this.deleteMessageID) {
+			if(collection.get(i).getId()==this.deleteMessageID) {
 				collection.remove(i);
 				break;
 			}
@@ -81,7 +81,7 @@ public class DeleteMailCommand implements ICommand {
 	private void findAndDelete(ArrayList<Mail> collection,ArrayList<Mail> trash){
 			
 			for(int i=0;i<collection.size();i++) {
-				if(collection.get(i).getID()==this.deleteMessageID) {
+				if(collection.get(i).getId()==this.deleteMessageID) {
 					trash.add(collection.get(i));
 					collection.remove(i);
 					break;

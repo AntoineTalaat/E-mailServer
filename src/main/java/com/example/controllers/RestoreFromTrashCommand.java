@@ -27,7 +27,7 @@ public class RestoreFromTrashCommand implements ICommand {
 	
 private void findAndRestore(ArrayList<Mail> trash){
 		for(int i=0;i<trash.size();i++) {
-			if(trash.get(i).getID()==this.mailID) {
+			if(trash.get(i).getId()==this.mailID) {
 				this.mail=trash.get(i);
 				trash.remove(i);
 				if(this.mail.getFromEmail().equals(this.userName)) {
