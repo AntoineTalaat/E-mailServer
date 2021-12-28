@@ -36,6 +36,7 @@ import com.example.controllers.ICommand;
 import com.example.controllers.ICommandProxy;
 import com.example.controllers.IDGenerator;
 import com.example.controllers.IMailCommand;
+import com.example.controllers.JSONtoObjectConverter;
 import com.example.controllers.LoginCommandProxy;
 import com.example.controllers.RestoreFromTrashCommand;
 import com.example.controllers.SearchByWordCommand;
@@ -61,18 +62,18 @@ import com.google.gson.reflect.TypeToken;
 public class EMailServerApplication {
 	UserUUIDConverter converter = new UserUUIDConverter();
 	Gson gson=new Gson();
+	IDGenerator idGenerator=new IDGenerator();
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EMailServerApplication.class, args);
 		UserDatabase databaseSetupObject =new UserDatabase();
-		databaseSetupObject.setupFileDatabase();	
-		EMailServerApplication e=new EMailServerApplication();
+		databaseSetupObject.setupFileDatabase();			
 	}
 	
 	
 	@GetMapping("/getID")
 	public int getID() {
-		return IDGenerator.getID();
+		return this.idGenerator.getID();
 	}
 	
 	
@@ -94,11 +95,9 @@ public class EMailServerApplication {
 	}
 	
 	@PostMapping("/user/logout")
-	public boolean logoutUser(@RequestBody String sessionID) {
+	public void logoutUser(@RequestBody String sessionID) {
 		this.converter.removeIdMapping(sessionID);
-		//TO DO remove from cache
-		return false;
-		
+		//TO DO remove from cache		
 	}
 	
 	@PostMapping("/user/delete")
@@ -114,24 +113,11 @@ public class EMailServerApplication {
 	//////////MAIL HANDLING////////////////////////////////////
 	@PostMapping("/mail/send")
 	public boolean sendMail(@RequestBody String mailJSON) {
-		/*
-		 * Next part is temporary until merging and trying with real data
-		 * part to be added: JSON TO MAIL OBJECT PARSING
-		 */
-	/*	Mail mail = new Mail();
-		mail.setAttachement("picture.com");
-		mail.setBody("Happy birthday to you!");
-		mail.setSubject("HBD");
-		mail.setFromEmail("vero@oop");
-		mail.setToEmail("mark@oop");
-		mail.setPriority(2);
-		mail.setDate("today");
-		mail.setID(1);
-	*/
-		//ICommandProxy command = new CreateMailCommandProxy(mail);
-		//return command.execute();
-		System.out.println(mailJSON);
-		return true;
+		JSONtoObjectConverter objectConverter = new JSONtoObjectConverter();
+		Mail mail = objectConverter.convertStringToMail(mailJSON);
+		mail.setID(this.idGenerator.getID());
+		ICommandProxy command = new CreateMailCommandProxy(mail);
+		return command.execute();
 	}
 	
 	@DeleteMapping("/mail/delete")
@@ -144,9 +130,8 @@ public class EMailServerApplication {
 
 	@PostMapping("/mail/addToDraft")
 	public void addMailToDraft(@RequestBody String mailJSON) {
-		//parsing steps to json object
-		//delete next step
-		Mail mail = new Mail();
+		JSONtoObjectConverter objectConverter = new JSONtoObjectConverter();
+		Mail mail = objectConverter.convertStringToMail(mailJSON);
 		ICommand command = new AddToDraftCommand(mail);
 		command.execute();
 	}
@@ -159,27 +144,31 @@ public class EMailServerApplication {
 	}
 	
 	@GetMapping("/user/getMailFolder")
-	public ArrayList<Mail> getMails(@RequestParam String userName,@RequestParam String folder){
+	public ArrayList<Mail> getMails(@RequestParam String userID,@RequestParam String folder){
+		String userName=this.converter.convertToAccount(userID);
 		GetMailsCommand command = new GetMailsCommand(userName,folder);
 		return command.execute();
 	}
 	
 	@GetMapping("/mail/sort")
-	public ArrayList<Mail> getMailsSorted(@RequestParam String userName,@RequestParam String folder,@RequestParam String criteria){
+	public ArrayList<Mail> getMailsSorted(@RequestParam String userID,@RequestParam String folder,@RequestParam String criteria){
+		String userName=this.converter.convertToAccount(userID);
 		IMailCommand command = new SortMailFolderCommand(userName,folder,criteria);
 		return command.execute();
 	}
 	
 	@GetMapping("/mail/search")
-	public ArrayList<Mail> searchMailFolder(@RequestParam String userName,@RequestParam String folder,@RequestParam String searchWord){
+	public ArrayList<Mail> searchMailFolder(@RequestParam String userID,@RequestParam String folder,@RequestParam String searchWord){
+		String userName=this.converter.convertToAccount(userID);
 		IMailCommand command = new SearchByWordCommand(userName,folder,searchWord);
 		return command.execute();
 	}
 	
 	@GetMapping("/mail/filter")
-	public ArrayList<Mail> filterMailFolder(@RequestParam String userName,
+	public ArrayList<Mail> filterMailFolder(@RequestParam String userID,
 											@RequestParam String folder,
 											@RequestParam filterObject filters){
+		String userName=this.converter.convertToAccount(userID);
 		IMailCommand command = new FilterCommand(userName,folder,filters);
 		return command.execute();
 	}
@@ -199,7 +188,8 @@ public class EMailServerApplication {
 	
 	@DeleteMapping("/user/deleteContact")
 	public void deleteContact(@RequestParam String userID,@RequestParam int contactID) {
-		ICommand command = new DeleteContactCommand(userID,contactID);
+		String userName=this.converter.convertToAccount(userID);
+		ICommand command = new DeleteContactCommand(userName,contactID);
 		command.execute();
 	}
 	
