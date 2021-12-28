@@ -25,6 +25,7 @@ import com.example.controllers.DeleteMailCommand;
 import com.example.controllers.DeleteUserCommandProxy;
 import com.example.controllers.EditContactCommand;
 import com.example.controllers.FilterCommand;
+import com.example.controllers.GetContactsCommand;
 import com.example.controllers.GetMailsCommand;
 import com.example.controllers.ICommand;
 import com.example.controllers.ICommandProxy;
@@ -101,7 +102,6 @@ public class EMailServerApplication {
 		ICommandProxy command = new DeleteUserCommandProxy(userName);
 		return command.execute();
 	}
-	
 	
 	
 	
@@ -208,7 +208,12 @@ public class EMailServerApplication {
 		command.execute();
 	}
 	
-	
+	@GetMapping("/user/getContacts")
+	public ArrayList<Contact> getContacts(@RequestParam String userID){
+		String userName=this.converter.convertToAccount(userID);
+		IContactCommand command = new GetContactsCommand(userName);
+		return command.execute();
+	}
 	
 	
 	

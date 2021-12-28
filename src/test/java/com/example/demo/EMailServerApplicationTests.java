@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,8 +15,19 @@ import com.example.controllers.UserDatabase;
 @SpringBootTest
 class EMailServerApplicationTests {
 
+	@BeforeEach
+	public void setup() {
+		//clearDatabase
+	}
+	
 	@Test
 	void contextLoads() {
+		
+		
+		
+		
+		
+		
 		
 	}
 
