@@ -2,19 +2,17 @@ package com.example.controllers;
 
 import java.util.ArrayList;
 
-import com.example.filterDesignPattern.CriteriaMailFilter;
+import com.example.filterDesignPattern.CriteriaMailSearch;
 import com.example.filterDesignPattern.MailCriteria;
 import com.example.mail.Mail;
-import com.example.mail.filterObject;
 
-public class FilterCommand implements IMailCommand{
+public class SearchByWordCommand implements IMailCommand {
 	private ArrayList<Mail> collection;
+	private String searchWord;
 	private MailDatabase database;
 	private String folder;
-	private filterObject filters;
 	
-	public FilterCommand(String userName,String folder,filterObject filters) {
-		this.filters=filters;
+	public SearchByWordCommand(String userName,String folder, String searchWord) {
 		this.folder=folder;
 		this.database=new MailDatabase(userName);
 		switch(this.folder) {
@@ -42,10 +40,11 @@ public class FilterCommand implements IMailCommand{
 		}
 	}
 	
+	
 	@Override
 	public ArrayList<Mail> execute() {
-		MailCriteria filterProcess = new CriteriaMailFilter(this.filters);
-		return filterProcess.meetCriteria(this.collection);
+		MailCriteria searchProcess=new CriteriaMailSearch(this.searchWord);
+		return searchProcess.meetCriteria(this.collection);
 	}
 
 }

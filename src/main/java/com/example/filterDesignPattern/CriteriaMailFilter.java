@@ -16,19 +16,19 @@ public class CriteriaMailFilter implements MailCriteria {
 	@Override
 	public ArrayList<Mail> meetCriteria(ArrayList<Mail> toBeFilteredMail) {
 	      ArrayList<Mail> mails = toBeFilteredMail;
-	      if(this.criterias.getSubject()!=null) {
+	      if(this.criterias.getSubject()!="") {
 	    	  this.testCriteria= new CriteriaSubject(this.criterias.getSubject());
 	    	  mails=this.testCriteria.meetCriteria(mails);
 	    	  }
-	      if(this.criterias.getSender()!=null) {
+	      if(this.criterias.getSender()!="") {
 	    	  this.testCriteria= new CriteriaSender(this.criterias.getSender());
 	    	  mails=this.testCriteria.meetCriteria(mails);
 	    	  }
-	      if(this.criterias.getReceiver()!=null) {
+	      if(this.criterias.getReceiver()!="") {
 	    	  this.testCriteria= new CriteriaReceiver(this.criterias.getReceiver());
 	    	  mails=this.testCriteria.meetCriteria(mails);
 	    	  }
-	      if(this.criterias.getDate()!=null) {
+	      if(this.criterias.getDate()!="") {
 	    	  this.testCriteria= new CriteriaDate(this.criterias.getDate());
 	    	  mails=this.testCriteria.meetCriteria(mails);
 	    	  }

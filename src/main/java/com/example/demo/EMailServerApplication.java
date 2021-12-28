@@ -30,16 +30,20 @@ import com.example.controllers.DeleteContactCommand;
 import com.example.controllers.DeleteMailCommand;
 import com.example.controllers.DeleteUserCommand;
 import com.example.controllers.DeleteUserCommandProxy;
+import com.example.controllers.FilterCommand;
 import com.example.controllers.GetMailsCommand;
 import com.example.controllers.ICommand;
 import com.example.controllers.ICommandProxy;
 import com.example.controllers.IDGenerator;
 import com.example.controllers.IMailCommand;
 import com.example.controllers.LoginCommandProxy;
+import com.example.controllers.RestoreFromTrashCommand;
+import com.example.controllers.SearchByWordCommand;
 import com.example.controllers.SortMailFolderCommand;
 import com.example.controllers.UserDatabase;
 import com.example.controllers.UserUUIDConverter;
 import com.example.mail.Mail;
+import com.example.mail.filterObject;
 import com.example.users.Contact;
 import com.example.users.User;
 import com.google.gson.Gson;
@@ -64,8 +68,6 @@ public class EMailServerApplication {
 		databaseSetupObject.setupFileDatabase();	
 		EMailServerApplication e=new EMailServerApplication();
 	}
-	
-	
 	
 	
 	@GetMapping("/getID")
@@ -109,7 +111,6 @@ public class EMailServerApplication {
 	
 	
 	
-	
 	//////////MAIL HANDLING////////////////////////////////////
 	@PostMapping("/mail/send")
 	public boolean sendMail(@RequestBody String mailJSON) {
@@ -145,7 +146,14 @@ public class EMailServerApplication {
 		//delete next step
 		Mail mail = new Mail();
 		ICommand command = new AddToDraftCommand(mail);
-		
+		command.execute();
+	}
+	
+	@GetMapping("/mail/restore")
+	public void restoreFromTrash(@RequestParam String userID ,@RequestParam int mailID) {
+		String userName=this.converter.convertToAccount(userID);
+		ICommand command = new RestoreFromTrashCommand(userName,mailID);
+		command.execute();
 	}
 	
 	@GetMapping("/user/getMailFolder")
@@ -154,12 +162,25 @@ public class EMailServerApplication {
 		return command.execute();
 	}
 	
-	@GetMapping("/user/sort")
+	@GetMapping("/mail/sort")
 	public ArrayList<Mail> getMailsSorted(@RequestParam String userName,@RequestParam String folder,@RequestParam String criteria){
 		IMailCommand command = new SortMailFolderCommand(userName,folder,criteria);
 		return command.execute();
 	}
 	
+	@GetMapping("/mail/search")
+	public ArrayList<Mail> searchMailFolder(@RequestParam String userName,@RequestParam String folder,@RequestParam String searchWord){
+		IMailCommand command = new SearchByWordCommand(userName,folder,searchWord);
+		return command.execute();
+	}
+	
+	@GetMapping("/mail/filter")
+	public ArrayList<Mail> filterMailFolder(@RequestParam String userName,
+											@RequestParam String folder,
+											@RequestParam filterObject filters){
+		IMailCommand command = new FilterCommand(userName,folder,filters);
+		return command.execute();
+	}
 	
 	
 	//////////CONTACT HANDLING////////////////////////////////////
