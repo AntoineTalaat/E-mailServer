@@ -15,6 +15,7 @@ public class SearchByWordCommand implements IMailCommand {
 	public SearchByWordCommand(String userName,String folder, String searchWord) {
 		this.folder=folder;
 		this.database=new MailDatabase(userName);
+		this.searchWord=searchWord;
 		switch(this.folder) {
 		case "inbox":
 			this.collection=database.getInboxData();
