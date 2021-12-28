@@ -29,7 +29,6 @@ import com.example.controllers.GetMailsCommand;
 import com.example.controllers.ICommand;
 import com.example.controllers.ICommandProxy;
 import com.example.controllers.IContactCommand;
-import com.example.controllers.IDGenerator;
 import com.example.controllers.IMailCommand;
 import com.example.controllers.JSONtoObjectConverter;
 import com.example.controllers.LoginCommandProxy;
@@ -58,7 +57,7 @@ import com.google.gson.reflect.TypeToken;
 public class EMailServerApplication {
 	UserUUIDConverter converter = new UserUUIDConverter();
 	Gson gson=new Gson();
-	IDGenerator idGenerator=new IDGenerator();
+	UserDatabase idGenerator = new UserDatabase();
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EMailServerApplication.class, args);
