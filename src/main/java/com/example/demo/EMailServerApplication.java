@@ -118,7 +118,7 @@ public class EMailServerApplication {
 		 * Next part is temporary until merging and trying with real data
 		 * part to be added: JSON TO MAIL OBJECT PARSING
 		 */
-		Mail mail = new Mail();
+	/*	Mail mail = new Mail();
 		mail.setAttachement("picture.com");
 		mail.setBody("Happy birthday to you!");
 		mail.setSubject("HBD");
@@ -127,9 +127,11 @@ public class EMailServerApplication {
 		mail.setPriority(2);
 		mail.setDate("today");
 		mail.setID(1);
-		
-		ICommandProxy command = new CreateMailCommandProxy(mail);
-		return command.execute();			
+	*/
+		//ICommandProxy command = new CreateMailCommandProxy(mail);
+		//return command.execute();
+		System.out.println(mailJSON);
+		return true;
 	}
 	
 	@DeleteMapping("/mail/delete")
