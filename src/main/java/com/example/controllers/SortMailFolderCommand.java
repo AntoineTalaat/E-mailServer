@@ -5,7 +5,7 @@ import java.util.Collections;
 
 import com.example.mail.Mail;
 
-public class SortMailFolderCommand implements ICommunicationCommand {
+public class SortMailFolderCommand implements IMailCommand {
 	private String userName;
 	private String folder;
 	private String criteria;

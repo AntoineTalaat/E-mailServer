@@ -8,8 +8,9 @@ public class UserUUIDConverter {
 	}
 	
 	public String convertToUUID(String account) {
-		UUID uuid=UUID.randomUUID(); //Generates random UUID  
-		while(this.map.contains(uuid)) {
+		UUID uuid=UUID.randomUUID(); //Generates random UUID
+		int counter=0;
+		while(this.map.contains(uuid)&&counter<1000) {
 			uuid=UUID.randomUUID();
 		}
 		this.map.put(uuid.toString(), account);
@@ -21,6 +22,9 @@ public class UserUUIDConverter {
 	}
 	
 	
+	public void removeIdMapping(String uuid) {
+		this.map.remove(uuid);
+	}
 	
 	
 	

@@ -29,10 +29,11 @@ public class DeleteMailCommand implements ICommand {
 		ArrayList<Mail> collection;
 		ArrayList<Mail> cachedCollection;
 
+		ArrayList<Mail> trash=data.getTrashData();
 		switch (this.collectionName) {
 		case "inbox":
 			collection=data.getInboxData();
-			this.findAndDelete(collection);
+			this.findAndDelete(collection,trash);
 //			cachedCollection = cache.fetchUser(userName).getInboxMail();
 //			this.findAndDelete(cachedCollection);
 			data.saveInboxData(collection);
@@ -61,6 +62,7 @@ public class DeleteMailCommand implements ICommand {
 		default:
 			break;
 		}
+		data.saveTrashData(trash);
 		
 	}
 	
@@ -75,6 +77,18 @@ public class DeleteMailCommand implements ICommand {
 		}
 		
 	}
+	
+	private void findAndDelete(ArrayList<Mail> collection,ArrayList<Mail> trash){
+			
+			for(int i=0;i<collection.size();i++) {
+				if(collection.get(i).getID()==this.deleteMessageID) {
+					trash.add(collection.get(i));
+					collection.remove(i);
+					break;
+				}
+			}
+			
+		}
 	
 	
 	

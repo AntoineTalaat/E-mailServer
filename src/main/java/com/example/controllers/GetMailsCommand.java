@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.example.mail.Mail;
 
-public class GetMailsCommand implements ICommunicationCommand {
+public class GetMailsCommand implements IMailCommand {
 	private MailDatabase database;
 	//private UserCacheManager cache;
 	private String account;

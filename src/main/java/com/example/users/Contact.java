@@ -1,32 +1,30 @@
 package com.example.users;
 
+import java.util.ArrayList;
+
 public class Contact {
-	private String chosenName;
-	private String firstAccountName;
-	private String secondAccountName;
+
+	private String contactName;
+	private ArrayList<String> contactAdresses;
+	private int contactID;
 	
-	public Contact(String chosenName,String lonelyAccountName)
-	{
-		this.chosenName=chosenName;
-		this.firstAccountName=lonelyAccountName;
+	public int getContactID() {
+		return contactID;
 	}
-	
-	public Contact(String chosenName,String firstAccountName,String secondAccountName) {
-		this.chosenName=chosenName;
-		this.firstAccountName=firstAccountName;
-		this.secondAccountName=secondAccountName;
+	public void setContactID(int contactID) {
+		this.contactID = contactID;
 	}
-	
-	public String[] getEmails() {
-		String[] emails;
-		if(this.secondAccountName==null) {
-			emails= new String[1];
-			emails[0]=firstAccountName;
-		}else {
-			emails=new String[2];
-			emails[0]=firstAccountName;
-			emails[1]=secondAccountName;
-		}
-		return emails;
+	public String getContactName() {
+		return contactName;
 	}
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
+	public ArrayList<String> getContactAdresses() {
+		return contactAdresses;
+	}
+	public void setContactAdresses(ArrayList<String> contactAdresses) {
+		this.contactAdresses = contactAdresses;
+	}
+
 }

@@ -8,9 +8,6 @@ import com.example.mail.filterObject;
 public class CriteriaMailFilter implements MailCriteria {
 	filterObject criterias;
 	MailCriteria testCriteria;
-
-
-	
 	
 	public CriteriaMailFilter(filterObject object) {
 	      this.criterias=object;
