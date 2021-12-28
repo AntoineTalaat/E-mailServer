@@ -48,7 +48,7 @@ public class UserDatabase {
 
 	
 	public void saveUserListToFile(ArrayList<String> users) {
-		Type listType = new TypeToken<ArrayList<String>>() {}.getType();
+		Type listType = new TypeToken<MetaDataObject>() {}.getType();
 		MetaDataObject database = this.readCurrentMetaData();
 		database.setUsers(users);
 		String jsontxt = this.gson.toJson(database, listType);
