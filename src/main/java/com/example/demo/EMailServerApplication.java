@@ -1,13 +1,9 @@
 package com.example.demo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.UUID;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,13 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.controllers.AddContactCommand;
 import com.example.controllers.AddToDraftCommand;
-import com.example.controllers.CreateMailCommand;
 import com.example.controllers.CreateMailCommandProxy;
-import com.example.controllers.CreateUserCommand;
 import com.example.controllers.CreateUserCommandProxy;
 import com.example.controllers.DeleteContactCommand;
 import com.example.controllers.DeleteMailCommand;
-import com.example.controllers.DeleteUserCommand;
 import com.example.controllers.DeleteUserCommandProxy;
 import com.example.controllers.FilterCommand;
 import com.example.controllers.GetMailsCommand;
@@ -46,7 +39,6 @@ import com.example.controllers.UserUUIDConverter;
 import com.example.mail.Mail;
 import com.example.mail.filterObject;
 import com.example.users.Contact;
-import com.example.users.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -115,7 +107,7 @@ public class EMailServerApplication {
 	public boolean sendMail(@RequestBody String mailJSON) {
 		JSONtoObjectConverter objectConverter = new JSONtoObjectConverter();
 		Mail mail = objectConverter.convertStringToMail(mailJSON);
-		mail.setID(this.idGenerator.getID());
+		mail.setId(this.idGenerator.getID());
 		ICommandProxy command = new CreateMailCommandProxy(mail);
 		return command.execute();
 	}

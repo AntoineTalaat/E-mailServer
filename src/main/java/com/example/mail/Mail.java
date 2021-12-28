@@ -6,7 +6,7 @@ public class Mail {
 	private String fromEmail;
 	private String toEmail;
 	private String subject;
-	private int ID;
+	private int id;
 	private String date;
 	private int priority;
 	private String attachement;
@@ -28,16 +28,14 @@ public class Mail {
 		this.toEmail = toEmail;
 	}
 
-	public int getID() {
-		return this.ID;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setID(int iD) {
-		this.ID = iD;
+	public void setId(int id) {
+		this.id = id;
 	}
-
-
-
 
 	public String getSubject() {
 		return subject;
