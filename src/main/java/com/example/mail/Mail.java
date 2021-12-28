@@ -3,14 +3,30 @@ package com.example.mail;
 import java.util.*;
 
 public class Mail {
-	private String sender;
-	private String reciever;
+	private String fromEmail;
+	private String toEmail;
 	private String subject;
 	private int ID;
 	private String date;
 	private int priority;
 	private String attachement;
 	private String body;
+
+	public String getFromEmail() {
+		return fromEmail;
+	}
+
+	public void setFromEmail(String fromEmail) {
+		this.fromEmail = fromEmail;
+	}
+
+	public String getToEmail() {
+		return toEmail;
+	}
+
+	public void setToEmail(String toEmail) {
+		this.toEmail = toEmail;
+	}
 
 	public int getID() {
 		return this.ID;
@@ -20,21 +36,8 @@ public class Mail {
 		this.ID = iD;
 	}
 
-	public String getFromEmail() {
-		return sender;
-	}
 
-	public void setFromEmail(String fromEmail) {
-		this.sender = fromEmail;
-	}
 
-	public String getToEmail() {
-		return reciever;
-	}
-
-	public void setToEmail(String toEmail) {
-		this.reciever = toEmail;
-	}
 
 	public String getSubject() {
 		return subject;
@@ -64,8 +67,8 @@ public class Mail {
 		return attachement;
 	}
 
-	public void setAttachement(String attachements) {
-		this.attachement = attachements;
+	public void setAttachement(String attachement) {
+		this.attachement = attachement;
 	}
 
 	public String getBody() {
