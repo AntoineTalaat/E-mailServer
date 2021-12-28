@@ -6,14 +6,12 @@ import java.util.Collections;
 import com.example.mail.Mail;
 
 public class SortMailFolderCommand implements IMailCommand {
-	private String userName;
 	private String folder;
 	private String criteria;
 	private MailDatabase database; 
 	private ArrayList<Mail> mail;
 	
 	public SortMailFolderCommand(String userName,String folder,String criteria) {
-		this.userName=userName;
 		this.criteria=criteria;
 		this.folder=folder;
 		this.database=new MailDatabase(userName);

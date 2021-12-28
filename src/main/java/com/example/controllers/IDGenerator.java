@@ -17,14 +17,7 @@ public class IDGenerator {
 	private String folderPath = "./accounts/";
 	private Gson gson = new Gson();
 	
-	
-	private void createIDFolder() {
-		File folder=new File(folderPath+"/IDGenerator.JSON");
-		folder.mkdir();
-	}
-	
-	
-	
+
 	
 	private void saveLatestIDData(int id) {
 		Type listType = new TypeToken<Integer>() {

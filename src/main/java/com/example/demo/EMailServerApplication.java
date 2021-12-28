@@ -23,10 +23,12 @@ import com.example.controllers.CreateUserCommandProxy;
 import com.example.controllers.DeleteContactCommand;
 import com.example.controllers.DeleteMailCommand;
 import com.example.controllers.DeleteUserCommandProxy;
+import com.example.controllers.EditContactCommand;
 import com.example.controllers.FilterCommand;
 import com.example.controllers.GetMailsCommand;
 import com.example.controllers.ICommand;
 import com.example.controllers.ICommandProxy;
+import com.example.controllers.IContactCommand;
 import com.example.controllers.IDGenerator;
 import com.example.controllers.IMailCommand;
 import com.example.controllers.JSONtoObjectConverter;
@@ -34,6 +36,7 @@ import com.example.controllers.LoginCommandProxy;
 import com.example.controllers.RestoreFromTrashCommand;
 import com.example.controllers.SearchByWordCommand;
 import com.example.controllers.SearchContactCommand;
+import com.example.controllers.SortContactFolderCommand;
 import com.example.controllers.SortMailFolderCommand;
 import com.example.controllers.UserDatabase;
 import com.example.controllers.UserUUIDConverter;
@@ -169,14 +172,13 @@ public class EMailServerApplication {
 	
 	//////////CONTACT HANDLING////////////////////////////////////
 	@PostMapping("/user/addContact")
-	public boolean addContact(@RequestParam String userID, @RequestBody String contactJSON) {
+	public void addContact(@RequestParam String userID, @RequestBody String contactJSON) {
 		String userName=this.converter.convertToAccount(userID);
-		Type listType = new TypeToken<Contact>() {
-		}.getType();
-		Contact contact = this.gson.fromJson(contactJSON, listType);
+		JSONtoObjectConverter objectConverter = new JSONtoObjectConverter();
+		Contact contact = objectConverter.convertStringToContact(contactJSON);
+		contact.setContactID(idGenerator.getID());
 		ICommand command = new AddContactCommand(userName,contact);
 		command.execute();
-		return true;
 	}
 	
 	@DeleteMapping("/user/deleteContact")
@@ -186,14 +188,30 @@ public class EMailServerApplication {
 		command.execute();
 	}
 	
-	/*
-	@GetMapping("/user/searchContact")
-	public ArrayList<Mail> searchContactFolder(@RequestParam String userID,@RequestParam String searchWord){
+	@GetMapping("/user/searchContacts")
+	public ArrayList<Contact> searchContactFolder(@RequestParam String userID,@RequestParam String searchWord){
 		String userName=this.converter.convertToAccount(userID);
-		IMailCommand command = new SearchContactCommand(userName,searchWord);
+		IContactCommand command = new SearchContactCommand(userName,searchWord);
 		return command.execute();
 	}
-	*/
+	
+	@GetMapping("/user/sortContacts")
+	public ArrayList<Contact> sortContactFolder(@RequestParam String userID){
+		String userName=this.converter.convertToAccount(userID);
+		IContactCommand command = new SortContactFolderCommand(userName);
+		return command.execute();
+	}
+	
+	@PostMapping("/user/editContact")
+	public void editContact(@RequestParam String userID,@RequestParam int contactID,@RequestParam String newName) {
+		String userName=this.converter.convertToAccount(userID);
+		ICommand command = new EditContactCommand(userID,contactID,newName);
+		command.execute();
+	}
+	
+	
+	
+	
 	
 	
 
