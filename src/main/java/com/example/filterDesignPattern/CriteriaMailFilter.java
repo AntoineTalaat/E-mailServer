@@ -2,8 +2,8 @@ package com.example.filterDesignPattern;
 
 import java.util.ArrayList;
 
+import com.example.commands.filterObject;
 import com.example.mail.Mail;
-import com.example.mail.filterObject;
 
 public class CriteriaMailFilter implements MailCriteria {
 	filterObject criterias;
@@ -16,19 +16,19 @@ public class CriteriaMailFilter implements MailCriteria {
 	@Override
 	public ArrayList<Mail> meetCriteria(ArrayList<Mail> toBeFilteredMail) {
 	      ArrayList<Mail> mails = toBeFilteredMail;
-	      if(this.criterias.getSubject()!="") {
+	      if(!this.criterias.getSubject().equals("")) {
 	    	  this.testCriteria= new CriteriaSubject(this.criterias.getSubject());
 	    	  mails=this.testCriteria.meetCriteria(mails);
 	    	  }
-	      if(this.criterias.getSender()!="") {
+	      if(!this.criterias.getSender().equals("")) {
 	    	  this.testCriteria= new CriteriaSender(this.criterias.getSender());
 	    	  mails=this.testCriteria.meetCriteria(mails);
 	    	  }
-	      if(this.criterias.getReceiver()!="") {
+	      if(!this.criterias.getReceiver().equals("")) {
 	    	  this.testCriteria= new CriteriaReceiver(this.criterias.getReceiver());
 	    	  mails=this.testCriteria.meetCriteria(mails);
 	    	  }
-	      if(this.criterias.getDate()!="") {
+	      if(!this.criterias.getDate().equals("")) {
 	    	  this.testCriteria= new CriteriaDate(this.criterias.getDate());
 	    	  mails=this.testCriteria.meetCriteria(mails);
 	    	  }
