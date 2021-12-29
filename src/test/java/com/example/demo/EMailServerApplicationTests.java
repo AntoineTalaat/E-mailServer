@@ -257,9 +257,7 @@ class EMailServerApplicationTests {
 		assertEquals(command1.execute() && command2.execute(),true,"user creation failed");
 		
 		UserDatabase database=new UserDatabase();
-		MailDatabase mdatabase1= new MailDatabase(user1);
-		MailDatabase mdatabase2= new MailDatabase(user2);
-		
+	
 		Mail mail1 = new Mail();
 		mail1.setFromEmail(user1);
 		mail1.setToEmail(user2);

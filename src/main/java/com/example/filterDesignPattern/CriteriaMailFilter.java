@@ -28,10 +28,10 @@ public class CriteriaMailFilter implements MailCriteria {
 	    	  this.testCriteria= new CriteriaReceiver(this.criterias.getReceiver());
 	    	  mails=this.testCriteria.meetCriteria(mails);
 	    	  }
-	      if(this.criterias.getDate()!="") {
+	      /*if(this.criterias.getDate()!="") {
 	    	  this.testCriteria= new CriteriaDate(this.criterias.getDate());
 	    	  mails=this.testCriteria.meetCriteria(mails);
-	    	  }
+	    	  }*/
 	      if(this.criterias.getPriority()!=0) {
 	    	  this.testCriteria= new CriteriaPriority(this.criterias.getPriority());
 	    	  mails=this.testCriteria.meetCriteria(mails);
