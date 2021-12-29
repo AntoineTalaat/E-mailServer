@@ -166,7 +166,7 @@ public class EMailServerApplication {
 		
 		JSONtoObjectConverter converter=new JSONtoObjectConverter();
 		filterObject filters=converter.convertStringtoFilterObject(filtersJSON);
-		
+		System.out.println("filters " + filters.getPriority()+" " + filters.getSender() + " " + filters.getSubject());
 		String userName=this.converter.convertToAccount(userID);
 		IMailCommand command = new FilterCommand(userName,folder,filters);
 		return command.execute();
