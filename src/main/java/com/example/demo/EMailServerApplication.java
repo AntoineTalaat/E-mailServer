@@ -174,8 +174,8 @@ public class EMailServerApplication {
 	
 	
 	//////////CONTACT HANDLING////////////////////////////////////
-	@PostMapping("/user/addContact")
-	public void addContact(@RequestParam String userID, @RequestBody String contactJSON) {
+	@GetMapping("/user/addContact")
+	public void addContact(@RequestParam String userID, @RequestParam String contactJSON) {
 		String userName=this.converter.convertToAccount(userID);
 		JSONtoObjectConverter objectConverter = new JSONtoObjectConverter();
 		Contact contact = objectConverter.convertStringToContact(contactJSON);
@@ -193,6 +193,7 @@ public class EMailServerApplication {
 	
 	@GetMapping("/user/searchContacts")
 	public ArrayList<Contact> searchContactFolder(@RequestParam String userID,@RequestParam String searchWord){
+		System.out.println(searchWord);
 		String userName=this.converter.convertToAccount(userID);
 		IContactCommand command = new SearchContactCommand(userName,searchWord);
 		return command.execute();
@@ -205,10 +206,10 @@ public class EMailServerApplication {
 		return command.execute();
 	}
 	
-	@PostMapping("/user/editContact")
+	@GetMapping("/user/editContact")
 	public void editContact(@RequestParam String userID,@RequestParam int contactID,@RequestParam String newName) {
 		String userName=this.converter.convertToAccount(userID);
-		ICommand command = new EditContactCommand(userID,contactID,newName);
+		ICommand command = new EditContactCommand(userName,contactID,newName);
 		command.execute();
 	}
 	
