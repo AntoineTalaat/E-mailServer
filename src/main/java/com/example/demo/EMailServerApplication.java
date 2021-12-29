@@ -111,11 +111,11 @@ public class EMailServerApplication {
 	}
 	
 	@DeleteMapping("/mail/delete")
-	public boolean deleteMessage(@RequestParam String id,@RequestParam int messageID,@RequestParam String collection) {
+	public void deleteMessage(@RequestParam String id,@RequestParam int messageID,@RequestParam String collection) {
 		String userName = this.converter.convertToAccount(id);
 		ICommand command=new DeleteMailCommand(userName,messageID,collection);
 		command.execute();
-		return true;
+		
 	}
 
 	@PostMapping("/mail/addToDraft")
@@ -169,8 +169,8 @@ public class EMailServerApplication {
 	
 	
 	//////////CONTACT HANDLING////////////////////////////////////
-	@GetMapping("/user/addContact")
-	public void addContact(@RequestParam String userID, @RequestParam String contactJSON) {
+	@PostMapping("/user/addContact")
+	public void addContact(@RequestParam String userID, @RequestBody String contactJSON) {
 		String userName=this.converter.convertToAccount(userID);
 		JSONtoObjectConverter objectConverter = new JSONtoObjectConverter();
 		Contact contact = objectConverter.convertStringToContact(contactJSON);
@@ -188,7 +188,6 @@ public class EMailServerApplication {
 	
 	@GetMapping("/user/searchContacts")
 	public ArrayList<Contact> searchContactFolder(@RequestParam String userID,@RequestParam String searchWord){
-		System.out.println(searchWord);
 		String userName=this.converter.convertToAccount(userID);
 		IContactCommand command = new SearchContactCommand(userName,searchWord);
 		return command.execute();
@@ -201,10 +200,10 @@ public class EMailServerApplication {
 		return command.execute();
 	}
 	
-	@GetMapping("/user/editContact")
+	@PostMapping("/user/editContact")
 	public void editContact(@RequestParam String userID,@RequestParam int contactID,@RequestParam String newName) {
 		String userName=this.converter.convertToAccount(userID);
-		ICommand command = new EditContactCommand(userName,contactID,newName);
+		ICommand command = new EditContactCommand(userID,contactID,newName);
 		command.execute();
 	}
 	
