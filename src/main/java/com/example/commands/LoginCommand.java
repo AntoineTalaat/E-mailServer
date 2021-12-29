@@ -11,7 +11,7 @@ public class LoginCommand implements ICommand{
 	public LoginCommand(String userName) {
 		//this.cache=cache.getInstance();
 		//we fetch the user data and store it to the cache
-		User user = new User();
+		/*User user = new User();
 		user.setName(userName);
 		this.mailData=new MailDatabase(userName);
 		user.setSentMail(this.mailData.getSentData());
@@ -19,7 +19,7 @@ public class LoginCommand implements ICommand{
 		user.setDraftMail(this.mailData.getDraftData());
 		user.setTrashMail(this.mailData.getTrashData());
 		user.setContacts(this.mailData.getContactsData());
-		this.user=user;
+		this.user=user;*/
 	}
 	
 	@Override

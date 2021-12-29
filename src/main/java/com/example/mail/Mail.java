@@ -9,7 +9,16 @@ public class Mail {
 	private int id;
 	private String date;
 	private int priority;
-	private String attachement;
+
+	public ArrayList<String> getAttachement() {
+		return attachement;
+	}
+
+	public void setAttachement(ArrayList<String> attachement) {
+		this.attachement = attachement;
+	}
+
+	private ArrayList<String> attachement;
 	private String body;
 
 	public String getFromEmail() {
@@ -61,13 +70,7 @@ public class Mail {
 		this.priority = priority;
 	}
 
-	public String getAttachement() {
-		return attachement;
-	}
 
-	public void setAttachement(String attachement) {
-		this.attachement = attachement;
-	}
 
 	public String getBody() {
 		return body;

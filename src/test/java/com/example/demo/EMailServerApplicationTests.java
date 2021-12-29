@@ -76,7 +76,7 @@ class EMailServerApplicationTests {
 		mail.setPriority(3);
 		mail.setSubject("Trying this new mail website!");
 		mail.setBody("Hello,user2 .. I am user 1 and I am testing this website .. please tell me if you recieved this message.");
-		mail.setAttachement("");
+		mail.setAttachement(new ArrayList<String>());
 		mail.setId(0);
 		
 		ICommandProxy commandSend = new CreateMailCommandProxy(mail);
@@ -112,7 +112,7 @@ class EMailServerApplicationTests {
 		mail.setPriority(3);
 		mail.setSubject("Trying this new mail website!");
 		mail.setBody("Hello,user2 .. I am user 1 and I am testing this website .. please tell me if you recieved this message.");
-		mail.setAttachement("");
+		mail.setAttachement(new ArrayList<String>());
 		mail.setId(55);
 		
 		ICommandProxy commandSend = new CreateMailCommandProxy(mail);
@@ -168,7 +168,7 @@ class EMailServerApplicationTests {
 		mail1.setPriority(3);
 		mail1.setSubject("Trying this new mail website!");
 		mail1.setBody("Hello,user2 .. I am user 1 and I am testing this website .. please tell me if you recieved this message.");
-		mail1.setAttachement("");
+		mail1.setAttachement(new ArrayList<String>());
 		int id=database.getID();
 		mail1.setId(id);
 		
@@ -179,7 +179,7 @@ class EMailServerApplicationTests {
 		mail2.setPriority(3);
 		mail2.setSubject("Trying this new mail website!");
 		mail2.setBody("Hello,user2 .. I am user 1 and I am testing this website .. please tell me if you recieved this message.");
-		mail2.setAttachement("");
+		mail2.setAttachement(new ArrayList<String>());
 		id=database.getID();
 		mail2.setId(id);
 		
@@ -205,7 +205,7 @@ class EMailServerApplicationTests {
 		mail1.setPriority(3);
 		mail1.setSubject("Trying this new mail website!");
 		mail1.setBody("Hello,user2 .. I am user 1 and I am testing this website .. please tell me if you recieved this message.");
-		mail1.setAttachement("");
+		mail1.setAttachement(new ArrayList<String>());
 		int id=database.getID();
 		mail1.setId(id);
 		ICommandProxy commandSend1 = new CreateMailCommandProxy(mail1);
@@ -219,7 +219,7 @@ class EMailServerApplicationTests {
 		mail2.setPriority(3);
 		mail2.setSubject("Happy To meet you");
 		mail2.setBody("Nice to meet you,user2");
-		mail2.setAttachement("");
+		mail2.setAttachement(new ArrayList<String>());
 		id=database.getID();
 		mail2.setId(id);
 		
@@ -265,7 +265,7 @@ class EMailServerApplicationTests {
 		mail1.setPriority(3);
 		mail1.setSubject("Trying this new mail website!");
 		mail1.setBody("Hello,user2 .. I am user 1 and I am testing this website .. please tell me if you recieved this message.");
-		mail1.setAttachement("");
+		mail1.setAttachement(new ArrayList<String>());
 		int id=database.getID();
 		mail1.setId(id);
 		
@@ -276,7 +276,7 @@ class EMailServerApplicationTests {
 		mail2.setPriority(3);
 		mail2.setSubject("Happy To meet you");
 		mail2.setBody("Nice to meet you,user2");
-		mail2.setAttachement("");
+		mail2.setAttachement(new ArrayList<String>());
 		id=database.getID();
 		mail2.setId(id);
 		
@@ -288,7 +288,7 @@ class EMailServerApplicationTests {
 		mail3.setPriority(2);
 		mail3.setSubject("Happy To meet you");
 		mail3.setBody("Happy");
-		mail3.setAttachement("");
+		mail3.setAttachement(new ArrayList<String>());
 		id=database.getID();
 		mail3.setId(id);
 		
@@ -349,7 +349,7 @@ class EMailServerApplicationTests {
 		mail.setPriority(3);
 		mail.setSubject("Trying this new mail website!");
 		mail.setBody("Hello,user2 .. I am user 1 and I am testing this website .. please tell me if you recieved this message.");
-		mail.setAttachement("");
+		mail.setAttachement(new ArrayList<String>());
 		mail.setId(0);
 		
 		ICommand command = new AddToDraftCommand(mail);
