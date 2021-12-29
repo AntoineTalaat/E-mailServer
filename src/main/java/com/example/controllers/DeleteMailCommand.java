@@ -40,7 +40,7 @@ public class DeleteMailCommand implements ICommand {
 			break;
 		case "sent":
 			collection=data.getSentData();
-			this.findAndDelete(collection);
+			this.findAndDelete(collection,trash);
 //			cachedCollection = cache.fetchUser(userName).getSentMail();
 //			this.findAndDelete(cachedCollection);
 			data.saveSentData(collection);

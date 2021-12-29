@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.controllers.AddToDraftCommand;
 import com.example.controllers.CreateMailCommand;
 import com.example.controllers.CreateMailCommandProxy;
 import com.example.controllers.CreateUserCommandProxy;
@@ -62,6 +63,9 @@ class EMailServerApplicationTests {
 	void sendMail() {
 		String user1="user1@oop";
 		String user2="user2@oop";
+		
+	
+		
 		ICommandProxy command1 = new CreateUserCommandProxy(user1);
 		ICommandProxy command2 = new CreateUserCommandProxy(user2);
 		assertEquals(command1.execute() && command2.execute(),true,"user creation failed");
@@ -317,7 +321,10 @@ class EMailServerApplicationTests {
 		//one match
 		command =  new FilterCommand(user2, "inbox", filters);
 		System.out.println(filtered.size());
+		System.out.println("Below is the data filtered");
 		filtered=command.execute();
+		System.out.println(filtered.get(0).getSubject());
+		System.out.println(filtered.get(0).getBody());
 		assertEquals(filtered.size()==1,true,"filter result size does not match second filter");
 
 		
@@ -328,5 +335,75 @@ class EMailServerApplicationTests {
 		
 	}
 	
+	@Test
+	void addToDraft() {
+		String user1="user10@oop";
+		String user2="user11@oop";
+
+		
+		ICommandProxy command1 = new CreateUserCommandProxy(user1);
+		ICommandProxy command2 = new CreateUserCommandProxy(user2);
+		assertEquals(command1.execute() && command2.execute(),true,"user creation failed");
+		Mail mail = new Mail();
+		mail.setFromEmail(user1);
+		mail.setToEmail(user2);
+		mail.setDate("2021-09-12");
+		mail.setPriority(3);
+		mail.setSubject("Trying this new mail website!");
+		mail.setBody("Hello,user2 .. I am user 1 and I am testing this website .. please tell me if you recieved this message.");
+		mail.setAttachement("");
+		mail.setId(0);
+		
+		ICommand command = new AddToDraftCommand(mail);
+		command.execute();
+		
+		MailDatabase database=new MailDatabase(user1);
+		ArrayList<Mail> draftOfUser1 = database.getDraftData();
+		System.out.println("Draft size is " + draftOfUser1.size());
+		assertEquals(draftOfUser1.size()==1,true,"draft size not expected");
+		assertEquals(draftOfUser1.get(0).getSubject().equals("Trying this new mail website!")
+				,true,"mail is not recognized as given");
+		ICommandProxy command1reverse = new DeleteUserCommandProxy(user1);
+		ICommandProxy command2reverse = new DeleteUserCommandProxy(user2);
+		assertEquals(command1reverse.execute(),true,"failed to delete first user");
+		assertEquals(command2reverse.execute(),true,"failed to delete second user");
+	}
+	
+	/*
+	@Test
+	void addToDraft() {
+		String user1="user10@oop";
+		String user2="user11@oop";
+
+		
+		ICommandProxy command1 = new CreateUserCommandProxy(user1);
+		ICommandProxy command2 = new CreateUserCommandProxy(user2);
+		assertEquals(command1.execute() && command2.execute(),true,"user creation failed");
+		Mail mail = new Mail();
+		mail.setFromEmail(user1);
+		mail.setToEmail(user2);
+		mail.setDate("2021-09-12");
+		mail.setPriority(3);
+		mail.setSubject("Trying this new mail website!");
+		mail.setBody("Hello,user2 .. I am user 1 and I am testing this website .. please tell me if you recieved this message.");
+		mail.setAttachement("");
+		mail.setId(0);
+		
+		ICommand command = new AddToDraftCommand(mail);
+		command.execute();
+		
+		MailDatabase database=new MailDatabase(user1);
+		ArrayList<Mail> draftOfUser1 = database.getDraftData();
+		System.out.println("Draft size is " + draftOfUser1.size());
+		assertEquals(draftOfUser1.size()==1,true,"draft size not expected");
+		assertEquals(draftOfUser1.get(0).getSubject().equals("Trying this new mail website!")
+				,true,"mail is not recognized as given");
+		ICommandProxy command1reverse = new DeleteUserCommandProxy(user1);
+		ICommandProxy command2reverse = new DeleteUserCommandProxy(user2);
+		assertEquals(command1reverse.execute(),true,"failed to delete first user");
+		assertEquals(command2reverse.execute(),true,"failed to delete second user");
+	}
+	
+	*/
 	
 }
