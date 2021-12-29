@@ -14,11 +14,14 @@ public class CriteriaSubject implements MailCriteria {
 	
 	@Override
 	public ArrayList<Mail> meetCriteria(ArrayList<Mail> mails) {
+		System.out.println("number of mails entering subject "+ mails.size());
 		ArrayList<Mail> filteredMail=new ArrayList<Mail>();
 		for(Mail mail:mails) {
-			if(mail.getSubject().equalsIgnoreCase(criteriaVariable))
+			System.out.println("current mail subject "+ mail.getSubject());
+			if(mail.getSubject().contains(this.criteriaVariable))
 				filteredMail.add(mail);
 		}
+		System.out.println("number of mails matching subject "+ filteredMail.size());
 		return filteredMail;
 	}
 

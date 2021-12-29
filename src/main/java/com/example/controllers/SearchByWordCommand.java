@@ -36,6 +36,7 @@ public class SearchByWordCommand implements IMailCommand {
 		
 		default:
 			//code to read custom json file
+			System.out.println("didn't identify folder");
 			this.collection=new ArrayList<Mail>();
 			break;
 		}

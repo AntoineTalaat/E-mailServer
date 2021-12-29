@@ -13,12 +13,16 @@ import com.example.controllers.CreateMailCommandProxy;
 import com.example.controllers.CreateUserCommandProxy;
 import com.example.controllers.DeleteMailCommand;
 import com.example.controllers.DeleteUserCommandProxy;
+import com.example.controllers.FilterCommand;
 import com.example.controllers.ICommand;
 import com.example.controllers.ICommandProxy;
+import com.example.controllers.IMailCommand;
 import com.example.controllers.MailDatabase;
 import com.example.controllers.RestoreFromTrashCommand;
+import com.example.controllers.SearchByWordCommand;
 import com.example.controllers.UserDatabase;
 import com.example.mail.Mail;
+import com.example.mail.filterObject;
 
 @SpringBootTest
 class EMailServerApplicationTests {
@@ -26,10 +30,12 @@ class EMailServerApplicationTests {
 	@BeforeEach
 	public void setup() {
 		//clearDatabase
+
 	}
 	
 	@Test
-	void contextLoads() {	
+	void contextLoads() {
+		
 	}
 
 	@Test
@@ -85,8 +91,13 @@ class EMailServerApplicationTests {
 	
 	@Test
 	void createMailAndSendMessageAndDeleteAndRestore() {
+		
 		String user1="user3@oop";
 		String user2="user4@oop";
+		
+		
+		
+		
 		ICommandProxy command1 = new CreateUserCommandProxy(user1);
 		ICommandProxy command2 = new CreateUserCommandProxy(user2);
 		assertEquals(command1.execute() && command2.execute(),true,"user creation failed");
@@ -172,9 +183,150 @@ class EMailServerApplicationTests {
 		
 	}
 	
+	@Test
+	void createMailsAndSearch() {
+		String user1="user5@oop";
+		String user2="user6@oop";
+		ICommandProxy command1 = new CreateUserCommandProxy(user1);
+		ICommandProxy command2 = new CreateUserCommandProxy(user2);
+		assertEquals(command1.execute() && command2.execute(),true,"user creation failed");
+		
+		UserDatabase database=new UserDatabase();
+		MailDatabase mdatabase1= new MailDatabase(user1);
+		MailDatabase mdatabase2= new MailDatabase(user2);
+		Mail mail1 = new Mail();
+		mail1.setFromEmail(user1);
+		mail1.setToEmail(user2);
+		mail1.setDate("2021-09-12");
+		mail1.setPriority(3);
+		mail1.setSubject("Trying this new mail website!");
+		mail1.setBody("Hello,user2 .. I am user 1 and I am testing this website .. please tell me if you recieved this message.");
+		mail1.setAttachement("");
+		int id=database.getID();
+		mail1.setId(id);
+		ICommandProxy commandSend1 = new CreateMailCommandProxy(mail1);
+		assertEquals(commandSend1.execute(),true,"sending first not successful");
+		
+		
+		Mail mail2 = new Mail();
+		mail2.setFromEmail(user1);
+		mail2.setToEmail(user2);
+		mail2.setDate("2022-09-12");
+		mail2.setPriority(3);
+		mail2.setSubject("Happy To meet you");
+		mail2.setBody("Nice to meet you,user2");
+		mail2.setAttachement("");
+		id=database.getID();
+		mail2.setId(id);
+		
+		ICommandProxy commandSend2 = new CreateMailCommandProxy(mail2);
+		assertEquals(commandSend2.execute(),true,"sending second not successful");
+		
+		ArrayList<Mail> inboxOfuser2 = mdatabase2.getInboxData();
+		assertEquals(inboxOfuser2.size()==2,true,"inbox size not expected before search");
+		
+		IMailCommand searchByHappyWord = new SearchByWordCommand(user2,"inbox","Happy");
+		ArrayList<Mail> searchResults= searchByHappyWord.execute();
+		
+		ICommandProxy command1reverse = new DeleteUserCommandProxy(user1);
+		ICommandProxy command2reverse = new DeleteUserCommandProxy(user2);
+		assertEquals(command1reverse.execute(),true,"failed to delete first user");
+		assertEquals(command2reverse.execute(),true,"failed to delete second user");
+		
+		System.out.println(searchResults.size());
+		for(Mail m : searchResults)
+			System.out.println(m.getSubject());
+		assertEquals(searchResults.size()==1,true,"search result size does not match");
+		assertEquals(searchResults.get(0).getSubject().equals("Happy To meet you"),true,"The search result is not expected");
+	}
 	
 	
-	
+	@Test
+	void createUsersAndFilterMessages() {
+		
+		String user1="user7@oop";
+		String user2="user8@oop";
+
+		
+		ICommandProxy command1 = new CreateUserCommandProxy(user1);
+		ICommandProxy command2 = new CreateUserCommandProxy(user2);
+		assertEquals(command1.execute() && command2.execute(),true,"user creation failed");
+		
+		UserDatabase database=new UserDatabase();
+		MailDatabase mdatabase1= new MailDatabase(user1);
+		MailDatabase mdatabase2= new MailDatabase(user2);
+		
+		Mail mail1 = new Mail();
+		mail1.setFromEmail(user1);
+		mail1.setToEmail(user2);
+		mail1.setDate("2021-09-12");
+		mail1.setPriority(3);
+		mail1.setSubject("Trying this new mail website!");
+		mail1.setBody("Hello,user2 .. I am user 1 and I am testing this website .. please tell me if you recieved this message.");
+		mail1.setAttachement("");
+		int id=database.getID();
+		mail1.setId(id);
+		
+		Mail mail2 = new Mail();
+		mail2.setFromEmail(user1);
+		mail2.setToEmail(user2);
+		mail2.setDate("2022-09-12");
+		mail2.setPriority(3);
+		mail2.setSubject("Happy To meet you");
+		mail2.setBody("Nice to meet you,user2");
+		mail2.setAttachement("");
+		id=database.getID();
+		mail2.setId(id);
+		
+		
+		Mail mail3 = new Mail();
+		mail3.setFromEmail(user1);
+		mail3.setToEmail(user2);
+		mail3.setDate("2022-09-12");
+		mail3.setPriority(2);
+		mail3.setSubject("Happy To meet you");
+		mail3.setBody("Happy");
+		mail3.setAttachement("");
+		id=database.getID();
+		mail3.setId(id);
+		
+		
+		ICommandProxy commandSend1 = new CreateMailCommandProxy(mail1);
+		assertEquals(commandSend1.execute(),true,"sending first not successful");
+		
+		ICommandProxy commandSend2 = new CreateMailCommandProxy(mail2);
+		assertEquals(commandSend2.execute(),true,"sending second not successful");
+		
+		ICommandProxy commandSend3 = new CreateMailCommandProxy(mail3);
+		assertEquals(commandSend3.execute(),true,"sending third not successful");
+		
+		
+		filterObject filters = new filterObject();
+		filters.setDate("");
+		filters.setPriority(0);
+		filters.setSender("");
+		filters.setReceiver("");
+		filters.setSubject("Happy");
+		//two matches
+		IMailCommand command = new FilterCommand(user2, "inbox", filters);
+		ArrayList<Mail> filtered = command.execute();
+		System.out.println(filtered.size());
+		assertEquals(filtered.size()==2,true,"filter result size does not match first filter");
+		
+		filters.setPriority(2);
+		//one match
+		command =  new FilterCommand(user2, "inbox", filters);
+		System.out.println(filtered.size());
+		filtered=command.execute();
+		assertEquals(filtered.size()==1,true,"filter result size does not match second filter");
+
+		
+		ICommandProxy command1reverse = new DeleteUserCommandProxy(user1);
+		ICommandProxy command2reverse = new DeleteUserCommandProxy(user2);
+		assertEquals(command1reverse.execute(),true,"failed to delete first user");
+		assertEquals(command2reverse.execute(),true,"failed to delete second user");
+		
+	}
 	
 	
 }
