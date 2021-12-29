@@ -17,10 +17,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.networknt.schema.JsonSchema;
-import com.networknt.schema.JsonSchemaFactory;
-import com.networknt.schema.SpecVersion;
-import com.networknt.schema.ValidationMessage;
+//import com.networknt.schema.JsonSchema;
+//import com.networknt.schema.JsonSchemaFactory;
+//import com.networknt.schema.SpecVersion;
+//import com.networknt.schema.ValidationMessage;
 
 /**
  * This class is responsible for handling json file that contains users names
@@ -116,7 +116,7 @@ public class UserDatabase {
 		}
 
 		try {
-			this.validateSchema(data);
+			//this.validateSchema(data);
 		}catch(Exception e ) {
 			e.printStackTrace();
 		}
@@ -129,7 +129,7 @@ public class UserDatabase {
 	
 	
 	
-	
+	/*
 	
 	private void validateSchema(String jsonData) throws JsonMappingException, JsonProcessingException, FileNotFoundException {
 		ObjectMapper objectMapper = new ObjectMapper();  
@@ -154,5 +154,6 @@ public class UserDatabase {
         }  
         
 	}
+	*/
 
 }
