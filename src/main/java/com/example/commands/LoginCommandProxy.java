@@ -1,6 +1,8 @@
-package com.example.controllers;
+package com.example.commands;
 
 import java.util.ArrayList;
+
+import com.example.fileManagement.UserDatabase;
 
 /***
  * this class will check two things 

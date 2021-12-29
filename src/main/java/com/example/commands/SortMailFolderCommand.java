@@ -1,8 +1,9 @@
-package com.example.controllers;
+package com.example.commands;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.example.fileManagement.MailDatabase;
 import com.example.mail.Mail;
 
 public class SortMailFolderCommand implements IMailCommand {

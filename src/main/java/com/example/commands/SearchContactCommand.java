@@ -1,7 +1,8 @@
-package com.example.controllers;
+package com.example.commands;
 
 import java.util.ArrayList;
 
+import com.example.fileManagement.MailDatabase;
 import com.example.filterDesignPattern.ContactCriteria;
 import com.example.filterDesignPattern.CriteriaContactName;
 import com.example.mail.Mail;

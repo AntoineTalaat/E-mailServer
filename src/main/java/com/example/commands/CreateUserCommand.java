@@ -1,4 +1,4 @@
-package com.example.controllers;
+package com.example.commands;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.example.fileManagement.UserDatabase;
 import com.example.users.User;
 import com.example.users.UserBuilder;
 import com.google.gson.Gson;

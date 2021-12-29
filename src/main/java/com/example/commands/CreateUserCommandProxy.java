@@ -1,12 +1,16 @@
-package com.example.controllers;
+package com.example.commands;
 
 import java.util.ArrayList;
 
-public class DeleteUserCommandProxy implements ICommandProxy{
+import com.example.fileManagement.UserDatabase;
+import com.example.users.User;
+import com.example.users.UserBuilder;
+
+public class CreateUserCommandProxy implements ICommandProxy {
 	private String userName;
 	private UserDatabase database;
 	
-	public DeleteUserCommandProxy(String name){
+	public CreateUserCommandProxy(String name){
 		this.userName=name;
 		database = new UserDatabase();
 	}
@@ -16,12 +20,15 @@ public class DeleteUserCommandProxy implements ICommandProxy{
 		
 		ArrayList<String> users;
 		users=this.database.getUserListFromFile();
-		if(!users.contains(this.userName)) {
+		if(users.contains(this.userName)) {
 			successful=false;
 		}else {
-			ICommand command = new DeleteUserCommand(this.userName);
+			ICommand command = new CreateUserCommand(this.userName);
 			command.execute();
 		}
 		return successful;
+		
+		
+
 	}
 }

@@ -1,21 +1,22 @@
-package com.example.controllers;
+package com.example.commands;
 
 import java.util.ArrayList;
 
-import com.example.filterDesignPattern.CriteriaMailSearch;
+import com.example.fileManagement.MailDatabase;
+import com.example.filterDesignPattern.CriteriaMailFilter;
 import com.example.filterDesignPattern.MailCriteria;
 import com.example.mail.Mail;
 
-public class SearchByWordCommand implements IMailCommand {
+public class FilterCommand implements IMailCommand{
 	private ArrayList<Mail> collection;
-	private String searchWord;
 	private MailDatabase database;
 	private String folder;
+	private filterObject filters;
 	
-	public SearchByWordCommand(String userName,String folder, String searchWord) {
+	public FilterCommand(String userName,String folder,filterObject filters) {
+		this.filters=filters;
 		this.folder=folder;
 		this.database=new MailDatabase(userName);
-		this.searchWord=searchWord;
 		switch(this.folder) {
 		case "inbox":
 			this.collection=database.getInboxData();
@@ -36,17 +37,15 @@ public class SearchByWordCommand implements IMailCommand {
 		
 		default:
 			//code to read custom json file
-			System.out.println("didn't identify folder");
 			this.collection=new ArrayList<Mail>();
 			break;
 		}
 	}
 	
-	
 	@Override
 	public ArrayList<Mail> execute() {
-		MailCriteria searchProcess=new CriteriaMailSearch(this.searchWord);
-		return searchProcess.meetCriteria(this.collection);
+		MailCriteria filterProcess = new CriteriaMailFilter(this.filters);
+		return filterProcess.meetCriteria(this.collection);
 	}
 
 }

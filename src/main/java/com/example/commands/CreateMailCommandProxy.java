@@ -1,7 +1,8 @@
-package com.example.controllers;
+package com.example.commands;
 
 import java.util.ArrayList;
 
+import com.example.fileManagement.UserDatabase;
 import com.example.mail.Mail;
 
 public class CreateMailCommandProxy implements ICommandProxy{

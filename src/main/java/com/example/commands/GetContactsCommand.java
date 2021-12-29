@@ -1,7 +1,8 @@
-package com.example.controllers;
+package com.example.commands;
 
 import java.util.ArrayList;
 
+import com.example.fileManagement.MailDatabase;
 import com.example.users.Contact;
 
 public class GetContactsCommand implements IContactCommand {

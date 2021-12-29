@@ -2,7 +2,6 @@ package com.example.filterDesignPattern;
 
 import java.util.ArrayList;
 
-import com.example.controllers.ISortingCriteria;
 import com.example.mail.Mail;
 
 public class CriteriaDate implements MailCriteria {

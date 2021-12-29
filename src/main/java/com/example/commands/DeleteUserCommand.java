@@ -1,7 +1,9 @@
-package com.example.controllers;
+package com.example.commands;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import com.example.fileManagement.UserDatabase;
 
 public class DeleteUserCommand implements ICommand {
 

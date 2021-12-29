@@ -1,5 +1,6 @@
-package com.example.controllers;
+package com.example.commands;
 
+import com.example.fileManagement.MailDatabase;
 import com.example.users.User;
 
 public class LoginCommand implements ICommand{

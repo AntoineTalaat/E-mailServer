@@ -29,6 +29,12 @@
 			<scope>test</scope>
 		</dependency>
 	
+		<dependency>  
+		        <groupId>com.networknt</groupId>  
+		        <artifactId>json-schema-validator</artifactId>  
+		        <version>1.0.42</version>  
+		</dependency>  
+			
 	    <!--  Gson: Java to Json conversion -->
 	    <dependency>
 	      <groupId>com.google.code.gson</groupId>

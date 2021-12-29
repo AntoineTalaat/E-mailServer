@@ -1,4 +1,4 @@
-package com.example.mail;
+package com.example.commands;
 
 public class filterObject {
 	private String subject;

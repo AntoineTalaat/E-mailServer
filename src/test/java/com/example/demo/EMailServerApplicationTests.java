@@ -8,22 +8,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.controllers.AddToDraftCommand;
-import com.example.controllers.CreateMailCommand;
-import com.example.controllers.CreateMailCommandProxy;
-import com.example.controllers.CreateUserCommandProxy;
-import com.example.controllers.DeleteMailCommand;
-import com.example.controllers.DeleteUserCommandProxy;
-import com.example.controllers.FilterCommand;
-import com.example.controllers.ICommand;
-import com.example.controllers.ICommandProxy;
-import com.example.controllers.IMailCommand;
-import com.example.controllers.MailDatabase;
-import com.example.controllers.RestoreFromTrashCommand;
-import com.example.controllers.SearchByWordCommand;
-import com.example.controllers.UserDatabase;
+import com.example.commands.AddToDraftCommand;
+import com.example.commands.CreateMailCommand;
+import com.example.commands.CreateMailCommandProxy;
+import com.example.commands.CreateUserCommandProxy;
+import com.example.commands.DeleteMailCommand;
+import com.example.commands.DeleteUserCommandProxy;
+import com.example.commands.FilterCommand;
+import com.example.commands.ICommand;
+import com.example.commands.ICommandProxy;
+import com.example.commands.IMailCommand;
+import com.example.commands.RestoreFromTrashCommand;
+import com.example.commands.SearchByWordCommand;
+import com.example.commands.filterObject;
+import com.example.fileManagement.MailDatabase;
+import com.example.fileManagement.UserDatabase;
 import com.example.mail.Mail;
-import com.example.mail.filterObject;
 
 @SpringBootTest
 class EMailServerApplicationTests {

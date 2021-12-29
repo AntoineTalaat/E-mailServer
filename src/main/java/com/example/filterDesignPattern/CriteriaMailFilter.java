@@ -2,8 +2,8 @@ package com.example.filterDesignPattern;
 
 import java.util.ArrayList;
 
+import com.example.commands.filterObject;
 import com.example.mail.Mail;
-import com.example.mail.filterObject;
 
 public class CriteriaMailFilter implements MailCriteria {
 	filterObject criterias;
