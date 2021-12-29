@@ -14,9 +14,14 @@ public class CriteriaDate implements MailCriteria {
 	
 	@Override
 	public ArrayList<Mail> meetCriteria(ArrayList<Mail> mails) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Mail> filteredMail=new ArrayList<Mail>();
+		for(Mail mail:mails) {
+			if(mail.getDate().compareTo(criteriaVariable)<0)//-ve a>b +ve a<b
+				filteredMail.add(mail);
+		}
+		return filteredMail;
 	}
+
 
 	
 }

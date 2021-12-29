@@ -27,7 +27,6 @@ public class DeleteMailCommand implements ICommand {
 		MailDatabase data = new MailDatabase(this.userName);
 		
 		ArrayList<Mail> collection;
-		ArrayList<Mail> cachedCollection;
 
 		ArrayList<Mail> trash=data.getTrashData();
 		switch (this.collectionName) {
@@ -37,6 +36,7 @@ public class DeleteMailCommand implements ICommand {
 //			cachedCollection = cache.fetchUser(userName).getInboxMail();
 //			this.findAndDelete(cachedCollection);
 			data.saveInboxData(collection);
+			data.saveTrashData(trash);
 			break;
 		case "sent":
 			collection=data.getSentData();
@@ -44,6 +44,8 @@ public class DeleteMailCommand implements ICommand {
 //			cachedCollection = cache.fetchUser(userName).getSentMail();
 //			this.findAndDelete(cachedCollection);
 			data.saveSentData(collection);
+			data.saveTrashData(trash);
+			
 			break;
 		case "trash":
 			collection=data.getTrashData();
@@ -58,11 +60,11 @@ public class DeleteMailCommand implements ICommand {
 //			cachedCollection = cache.fetchUser(userName).getDraftMail();
 //			this.findAndDelete(cachedCollection);
 			data.saveDraftData(collection);
+			
 			break;
 		default:
 			break;
 		}
-		data.saveTrashData(trash);
 		
 	}
 	
