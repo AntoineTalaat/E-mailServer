@@ -1,1 +1,5 @@
-[]
+[
+    {"contactName":"Mark", "contactAdresses": ["mark@oop.com","Markoo@oop.com"] , "contactID":1},
+    {"contactName":"Tony","contactAdresses": ["t@oop.com"],"contactID": 2},
+    {"contactName":"clown", "contactAdresses": ["vr@oop.com","vecoo@oop"], "contactID": 3}
+  ]
