@@ -7,11 +7,9 @@ import com.example.users.Contact;
 
 public class EditContactCommand implements ICommand {
 	private int editContactID;
-	private String userName;
 	private MailDatabase database;
 	private String newName;
 	public EditContactCommand(String userName,int contactID,String newName) {
-		this.userName=userName;
 		this.editContactID=contactID;
 		this.newName=newName;
 		this.database=new MailDatabase(userName);

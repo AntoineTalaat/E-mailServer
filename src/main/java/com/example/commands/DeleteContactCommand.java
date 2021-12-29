@@ -7,13 +7,11 @@ import com.example.mail.Mail;
 import com.example.users.Contact;
 
 public class DeleteContactCommand implements ICommand{
-	private String userName;
 	private int deleteContactID ;
 	private MailDatabase database;
 	
 	public DeleteContactCommand(String userName,int id) {
-		this.userName=userName;
-		this.deleteContactID=id;
+ 		this.deleteContactID=id;
 		this.database=new MailDatabase(userName);
 		}
 

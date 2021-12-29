@@ -3,8 +3,6 @@ package com.example.commands;
 import java.util.ArrayList;
 
 import com.example.fileManagement.UserDatabase;
-import com.example.users.User;
-import com.example.users.UserBuilder;
 
 public class CreateUserCommandProxy implements ICommandProxy {
 	private String userName;

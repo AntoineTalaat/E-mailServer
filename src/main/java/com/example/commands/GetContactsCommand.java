@@ -16,5 +16,4 @@ public class GetContactsCommand implements IContactCommand {
 	public ArrayList<Contact> execute() {
 		return this.database.getContactsData();
 	}
-
 }

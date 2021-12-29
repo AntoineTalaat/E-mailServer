@@ -7,14 +7,12 @@ import com.example.mail.Mail;
 
 public class CreateMailCommandProxy implements ICommandProxy{
 	 
-			private String fromUser;
 			private String toUser;
 			private Mail mail;
 			private UserDatabase database;
 
 			
 			public CreateMailCommandProxy(Mail mail) {
-				this.fromUser=mail.getFromEmail();
 				this.toUser=mail.getToEmail();
 				this.mail=mail;
 				this.database = new UserDatabase();

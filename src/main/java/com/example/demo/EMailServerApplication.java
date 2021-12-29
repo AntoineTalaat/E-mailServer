@@ -56,9 +56,8 @@ import com.google.gson.reflect.TypeToken;
  *
  */
 public class EMailServerApplication {
-	UserUUIDConverter converter = new UserUUIDConverter();
-	Gson gson=new Gson();
-	UserDatabase idGenerator = new UserDatabase();
+	private UserUUIDConverter converter = new UserUUIDConverter();
+	private UserDatabase idGenerator = new UserDatabase();
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EMailServerApplication.class, args);
@@ -67,10 +66,7 @@ public class EMailServerApplication {
 	}
 	
 	
-	@GetMapping("/getID")
-	public int getID() {
-		return this.idGenerator.getID();
-	}
+
 	
 	
 	//////////USER ACCOUNT////////////////////////////////////
@@ -98,7 +94,6 @@ public class EMailServerApplication {
 	
 	@PostMapping("/user/delete")
 	public boolean deleteUser(@RequestBody String userName) {
-		//String userName=this.converter.convertToAccount(id);
 		ICommandProxy command = new DeleteUserCommandProxy(userName);
 		return command.execute();
 	}

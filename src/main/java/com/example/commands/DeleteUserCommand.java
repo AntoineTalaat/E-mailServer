@@ -6,15 +6,12 @@ import java.util.ArrayList;
 import com.example.fileManagement.UserDatabase;
 
 public class DeleteUserCommand implements ICommand {
-
-	//private UserCacheManager cache;
 	private String userName;
 	private UserDatabase database;
 	
 	public DeleteUserCommand(String name) {
 		this.userName=name;
 		database = new UserDatabase();
-		//this.cache=cache.getInstance();
 	}
 	
 	

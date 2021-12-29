@@ -19,19 +19,15 @@ public class SortMailFolderCommand implements IMailCommand {
 		switch(this.folder) {
 		case "inbox":
 			this.mail=database.getInboxData();
-//			this.mail=cache.fetchUser(this.account).getInboxMail();
 			break;
 		case "sent":
 			this.mail=database.getSentData();
-//			this.mail=cache.fetchUser(this.account).getSentMail();
 			break;
 		case "trash":
 			this.mail=database.getTrashData();
-//			this.mail=cache.fetchUser(this.account).getTrashMail();
 			break;
 		case "draft":
 			this.mail=database.getDraftData();
-//			this.mail=cache.fetchUser(this.account).getDraftMail();
 			break;
 		
 		default:

@@ -20,21 +20,16 @@ public class FilterCommand implements IMailCommand{
 		switch(this.folder) {
 		case "inbox":
 			this.collection=database.getInboxData();
-//			this.mail=cache.fetchUser(this.account).getInboxMail();
 			break;
 		case "sent":
 			this.collection=database.getSentData();
-//			this.mail=cache.fetchUser(this.account).getSentMail();
 			break;
 		case "trash":
 			this.collection=database.getTrashData();
-//			this.mail=cache.fetchUser(this.account).getTrashMail();
 			break;
 		case "draft":
 			this.collection=database.getDraftData();
-//			this.mail=cache.fetchUser(this.account).getDraftMail();
 			break;
-		
 		default:
 			//code to read custom json file
 			this.collection=new ArrayList<Mail>();
