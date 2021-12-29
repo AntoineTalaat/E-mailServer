@@ -152,8 +152,7 @@ public class UserDatabase {
 	}
 	
 	public int getID() {
-		MetaDataObject mdo = new MetaDataObject();
-		int id= mdo.getIdCount();
+		int id = this.getLatestIDFromFile();
 		this.saveLatestIDData(id+1);
 		return id+1;
 	}

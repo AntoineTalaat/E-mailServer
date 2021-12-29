@@ -15,6 +15,7 @@ public class CriteriaOr implements MailCriteria {
 	
 	@Override
 	public ArrayList<Mail> meetCriteria(ArrayList<Mail> toBeFilteredMail) {
+			System.out.println("size of mail entering or Criteria " +toBeFilteredMail.size() );
 	      ArrayList<Mail> firstCriteriaMails = this.firstCriteria.meetCriteria(toBeFilteredMail);
 	      ArrayList<Mail> secondCriteriaMails = this.secondCriteria.meetCriteria(toBeFilteredMail);
 

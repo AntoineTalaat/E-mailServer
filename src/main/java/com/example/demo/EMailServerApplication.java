@@ -162,7 +162,11 @@ public class EMailServerApplication {
 	@GetMapping("/mail/filter")
 	public ArrayList<Mail> filterMailFolder(@RequestParam String userID,
 											@RequestParam String folder,
-											@RequestParam filterObject filters){
+											@RequestParam String filtersJSON){
+		
+		JSONtoObjectConverter converter=new JSONtoObjectConverter();
+		filterObject filters=converter.convertStringtoFilterObject(filtersJSON);
+		
 		String userName=this.converter.convertToAccount(userID);
 		IMailCommand command = new FilterCommand(userName,folder,filters);
 		return command.execute();
