@@ -170,8 +170,8 @@ public class EMailServerApplication {
 	
 	
 	//////////CONTACT HANDLING////////////////////////////////////
-	@PostMapping("/user/addContact")
-	public void addContact(@RequestParam String userID, @RequestBody String contactJSON) {
+	@GetMapping("/user/addContact")
+	public void addContact(@RequestParam String userID, @RequestParam String contactJSON) {
 		String userName=this.converter.convertToAccount(userID);
 		JSONtoObjectConverter objectConverter = new JSONtoObjectConverter();
 		Contact contact = objectConverter.convertStringToContact(contactJSON);
