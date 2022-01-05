@@ -178,6 +178,7 @@ public class EMailServerApplication {
 		contact.setContactID(idGenerator.getID());
 		ICommand command = new AddContactCommand(userName,contact);
 		command.execute();
+		
 	}
 	
 	@DeleteMapping("/user/deleteContact")
